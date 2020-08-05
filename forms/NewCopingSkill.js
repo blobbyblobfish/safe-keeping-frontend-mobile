@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function EditAccountForm() {
+export default function NewCopingSkill() {
   
   const styles = StyleSheet.create({
     container: {
@@ -14,7 +14,7 @@ export default function EditAccountForm() {
   
   return (
     <View style={styles.container}>
-      <Text>Edit Profile!</Text>
+      <Text>New Coping Skill!</Text>
     </View>
   )
 }
