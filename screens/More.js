@@ -16,18 +16,15 @@ export default function More({ navigation }) {
       <View style={styles.container}>
           <Button
             title="About"
-            accessibilityLabel="About"
-            onPress={() => navigation.navigate("About")} // We added an onPress event which would navigate to the About screen
+            onPress={() => navigation.navigate("About")} 
           />
           <Button
             title="Trends"
-            accessibilityLabel="Trends"
-            onPress={() => navigation.navigate("Trends")} // We added an onPress event which would navigate to the About screen
+            onPress={() => navigation.navigate("Trends")} 
           />
           <Button
             title="Settings"
-            accessibilityLabel="Settings"
-            onPress={() => navigation.navigate("Settings")} // We added an onPress event which would navigate to the About screen
+            onPress={() => navigation.navigate("Settings")} 
           />
           <Button
             title="Logout"

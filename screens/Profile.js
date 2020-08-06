@@ -17,7 +17,6 @@ export default function Profile({ navigation }) {
         <Text>Profile!</Text>
         <Button
             title="Edit Profile"
-            accessibilityLabel="Edit Profile"
             onPress={() => navigation.navigate("EditProfile")}
         />
     </View>

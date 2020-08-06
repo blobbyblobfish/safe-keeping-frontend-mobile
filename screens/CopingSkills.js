@@ -17,7 +17,6 @@ export default function CopingSkills( { navigation } ) {
       <Text>Coping Skills!</Text>
       <Button 
         title="New Coping Skill"
-        accessibilityLabel="New Coping Skill"
         onPress={() => navigation.navigate("New Coping Skill")}
       />
     </View>

@@ -1,8 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, Text, View, Button } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 
-export default function DiaryCards({ navigation }) {
+function DiaryCards( props ) {
 
   const styles = StyleSheet.create({
     container: {
@@ -18,20 +19,18 @@ export default function DiaryCards({ navigation }) {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'flex-start'
-  }
-})
-  
-  const renderSelectedDay = (dayObject) => {
-    const selectedDay = dayObject.dateString
-    return selectedDay
-  }
+    }
+  })
 
-  return (
+  console.log(props)
+
+  return (  
     <View style={styles.container}>
       
       {/* Calendar feature marks dates of UserDiaryCards*/}
       <Calendar
         // style={styles.calendar}
+        hideExtraDays={true}
         onDayPress={(day) => { console.log(day) }}
 
         // Max Date allows the day after today to be selected?
@@ -43,8 +42,7 @@ export default function DiaryCards({ navigation }) {
 
       <Button
             title="New Diary Card"
-            accessibilityLabel="New Diary Card"
-            onPress={() => navigation.navigate("New Diary Card")}
+            onPress={() => props.navigation.navigate("New Diary Card")}
       />
 
       {/* <Text>{renderSelectedDay()}</Text> */}
@@ -59,3 +57,5 @@ export default function DiaryCards({ navigation }) {
     </View>
   )
 }
+
+export default connect(state => ({state}))(DiaryCards)
