@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function EditAccountForm() {
+export default function EditAccount() {
   
   const styles = StyleSheet.create({
     container: {

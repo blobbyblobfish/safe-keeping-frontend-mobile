@@ -16,6 +16,7 @@ function TabNavigator(props) {
       .then(resp => resp.json())
       .then(json => {
         const user = { id: json.id, first_name: json.first_name, email: json.email }
+        const trackers = json.trackers
         const diaryCards = json.diary_cards
         
         props.dispatch({
@@ -23,6 +24,11 @@ function TabNavigator(props) {
           payload: user
         })
         
+        props.dispatch({
+          type: "SET_TRACKERS",
+          payload: trackers
+        })
+
         props.dispatch({
           type: "SET_DIARY_CARDS",
           payload: diaryCards

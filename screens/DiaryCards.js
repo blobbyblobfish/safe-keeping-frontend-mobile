@@ -2,23 +2,13 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View, Button } from 'react-native'
 import { Calendar } from 'react-native-calendars'
+import DiaryCard from '../components/DiaryCard'
 
 function DiaryCards( { navigation, state } ) {
 
   const styles = StyleSheet.create({
     container: {
       backgroundColor: '#fff',
-    },
-    button: {
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'flex-end',
-      backgroundColor: 'red'
-    },
-    diaryCards: {
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'flex-start'
     }
   })
 
@@ -36,29 +26,12 @@ function DiaryCards( { navigation, state } ) {
   if (date.day < 10) {
     datestring = `${date.year}-0${date.month}-0${date.day}`
   }
-  
-  //Tracker components ** TO DO ** (move to separate file)
-  const renderDiaryCardTrackers = (diary_card) => {
-    if (diary_card.diary_card_trackers) {
-      return diary_card.diary_card_trackers.map(tracker =>
-        <View key={tracker.tracker.name}>
-          <Text>{tracker.tracker.name}</Text>
-          <Text>{tracker.score}</Text>
-        </View>)
-    }
-  }
 
+  //Render Diary Cards
   const renderDiaryCards = () => {
-
     //** TO DO ** Filter by selected date
-
     return state.diary_cards.map(diary_card => 
-      <View key={diary_card.id}>
-        <Text>{diary_card.created_at}</Text>
-        <Text>{diary_card.feelings}</Text>
-        {renderDiaryCardTrackers(diary_card)}
-        <Button title="Edit"/>
-      </View>
+      <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
     )
   }
 
@@ -70,15 +43,14 @@ function DiaryCards( { navigation, state } ) {
         onDayPress={(day) => { setDate(day) }}
         maxDate={today}
 
-        // Dynamically mark dates of diary entries and highlight selected day
+        // ** TO DO ** Dynamically mark dates of diary entries and highlight selected day
         markedDates={{
           '2020-08-02': { marked: true },
           '2020-08-04': { marked: true }
         }}
       />
 
-      <Button
-        title="New Diary Card"
+      <Button title="New Diary Card"
         onPress={() => navigation.navigate("New Diary Card", {fullDate: fullDate})}
       />
 

@@ -18,7 +18,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
   const [thoughts, setThoughts] = useState('')
   const [feelings, setFeelings] = useState('')
 
-  //Props
+  //Props from Route Params
   const fullDate = route.params.fullDate
 
   return (
@@ -26,14 +26,14 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
       <Text style={styles.container}>{fullDate}</Text>
       <Text style={styles.container}>How are you feeling?</Text>
       <TextInput
-        style={{height: 40}}
+        style={{height: 100, width: 500}}
         placeholder="Right now, I am feeling..."
         onChangeText={feelings => setFeelings(feelings)}
         defaultValue={feelings}
       />
       <Text style={styles.container}>What's on your mind?</Text>
       <TextInput
-        style={{height: 40}}
+        style={{height: 100, width: 500}}
         placeholder="Right now, I am thinking..."
         onChangeText={thoughts => setThoughts(thoughts)}
         defaultValue={thoughts}
@@ -43,31 +43,36 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
         title="Next"
         onPress={() => {
           const newDiaryCard = {
-              user_id: state.user.id,
-              thoughts: thoughts,
-              feelings: feelings
-            }
+            user_id: state.user.id,
+            thoughts: thoughts,
+            feelings: feelings
+          }
 
           const configObj = {
             method: "POST",
-            headers: { "content-type": "application/json"},
+            headers: {
+              "content-type": "application/json",
+              "accepts": "application/json"
+            },
             body: JSON.stringify(newDiaryCard)
           }
 
-          fetch("http://localhost:3000/diary_cards", configObj)
+          fetch(`http://localhost:3000/diary_cards`, configObj)
             .then(resp => resp.json())
-            .then(json => dispatch({
-              type: "ADD_DIARY_CARD",
-              payload: {
-                id: json.id,
-                created_at: json.created_at,
-                thoughts: json.thoughts,
-                feelings: json.feelings,
-                diary_card_trackers: json.diary_card_trackers,
-              }
-            }))
+            .then(json => {              
+              dispatch({
+                type: "ADD_DIARY_CARD",
+                payload: {
+                  id: json.id,
+                  created_at: json.created_at,
+                  thoughts: json.thoughts,
+                  feelings: json.feelings,
+                  diary_card_trackers: json.diary_card_trackers,
+                }
+              })
 
-          navigation.navigate("New Diary Card ", { fullDate: fullDate })
+              navigation.navigate("New Diary Card ", { fullDate: fullDate, diaryCardId: json.id })
+            })
         }}
       />
     </View>

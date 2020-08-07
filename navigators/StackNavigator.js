@@ -12,8 +12,9 @@ import HelpButton from '../screens/HelpButton'
 
 import NewDiaryCard from '../forms/NewDiaryCard'
 import NewDiaryCardTracker from '../forms/NewDiaryCardTracker'
+import EditDiaryCard from '../forms/EditDiaryCard'
 import NewCopingSkill from '../forms/NewCopingSkill'
-import EditAccountForm from "../forms/EditAccountForm"
+import EditProfile from "../forms/EditProfile"
 
 const Stack = createStackNavigator()
 
@@ -40,7 +41,7 @@ const ProfileStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="EditProfile" component={EditAccountForm} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   )
 }
@@ -51,6 +52,7 @@ const DiaryCardStackNavigator = () => {
         <Stack.Screen name="Diary Cards" component={DiaryCards} />
         <Stack.Screen name="New Diary Card" component={NewDiaryCard} />
         <Stack.Screen name="New Diary Card " component={NewDiaryCardTracker} />
+        <Stack.Screen name="Edit Diary Card" component={EditDiaryCard} />
     </Stack.Navigator>
   )
 }
