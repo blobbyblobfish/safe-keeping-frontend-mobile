@@ -15,7 +15,8 @@ function TabNavigator(props) {
     fetch("http://localhost:3000/users/5")
       .then(resp => resp.json())
       .then(json => {
-        const user = { first_name: json.first_name, email: json.email }
+        const user = { id: json.id, first_name: json.first_name, email: json.email }
+        const diaryCards = json.diary_cards
         
         props.dispatch({
           type: "SET_USER",
@@ -24,7 +25,7 @@ function TabNavigator(props) {
         
         props.dispatch({
           type: "SET_DIARY_CARDS",
-          payload: [{}, {}, {}]
+          payload: diaryCards
         })
 
       })

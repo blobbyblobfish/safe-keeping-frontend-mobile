@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import auth from './auth'
 import user from './user'
-import diarycards from './diarycards'
+import diary_cards from './diary_cards'
 
 export default combineReducers({
     auth,
     user,
-    diarycards
+    diary_cards
 })

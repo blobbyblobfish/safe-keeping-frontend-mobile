@@ -11,6 +11,7 @@ import CopingSkills from "../screens/CopingSkills"
 import HelpButton from '../screens/HelpButton'
 
 import NewDiaryCard from '../forms/NewDiaryCard'
+import NewDiaryCardTracker from '../forms/NewDiaryCardTracker'
 import NewCopingSkill from '../forms/NewCopingSkill'
 import EditAccountForm from "../forms/EditAccountForm"
 
@@ -49,6 +50,7 @@ const DiaryCardStackNavigator = () => {
     <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="Diary Cards" component={DiaryCards} />
         <Stack.Screen name="New Diary Card" component={NewDiaryCard} />
+        <Stack.Screen name="New Diary Card " component={NewDiaryCardTracker} />
     </Stack.Navigator>
   )
 }

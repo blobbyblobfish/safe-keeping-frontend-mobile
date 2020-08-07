@@ -1,33 +1,77 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 
-export default function NewDiaryCard() {
+function NewDiaryCard({ route, navigation, state, dispatch }) {
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      flexDirection: 'column',
+      // flex: 1,
+      // flexDirection: 'column',
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
     },
   })
   
-  const [text, setText] = useState('');
+  //Controlled inputs
+  const [thoughts, setThoughts] = useState('')
+  const [feelings, setFeelings] = useState('')
+
+  //Props
+  const fullDate = route.params.fullDate
 
   return (
     <View style={styles.container}>
-      <Text style={styles.container}>Selected Date</Text>
-      <Text style={styles.container}>Thoughts</Text>
+      <Text style={styles.container}>{fullDate}</Text>
+      <Text style={styles.container}>How are you feeling?</Text>
+      <TextInput
+        style={{height: 40}}
+        placeholder="Right now, I am feeling..."
+        onChangeText={feelings => setFeelings(feelings)}
+        defaultValue={feelings}
+      />
+      <Text style={styles.container}>What's on your mind?</Text>
       <TextInput
         style={{height: 40}}
         placeholder="Right now, I am thinking..."
-        onChangeText={text => setText(text)}
-        defaultValue={text}
+        onChangeText={thoughts => setThoughts(thoughts)}
+        defaultValue={thoughts}
       />
+
       <Button 
-        title="Submit"
+        title="Next"
+        onPress={() => {
+          const newDiaryCard = {
+              user_id: state.user.id,
+              thoughts: thoughts,
+              feelings: feelings
+            }
+
+          const configObj = {
+            method: "POST",
+            headers: { "content-type": "application/json"},
+            body: JSON.stringify(newDiaryCard)
+          }
+
+          fetch("http://localhost:3000/diary_cards", configObj)
+            .then(resp => resp.json())
+            .then(json => dispatch({
+              type: "ADD_DIARY_CARD",
+              payload: {
+                id: json.id,
+                created_at: json.created_at,
+                thoughts: json.thoughts,
+                feelings: json.feelings,
+                diary_card_trackers: json.diary_card_trackers,
+              }
+            }))
+
+          navigation.navigate("New Diary Card ", { fullDate: fullDate })
+        }}
       />
     </View>
   )
 }
+
+export default connect(state => ({state}))(NewDiaryCard)

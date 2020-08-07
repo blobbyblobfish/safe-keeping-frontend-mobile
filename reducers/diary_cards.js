@@ -5,9 +5,11 @@ export default (state = initialState, action) => {
 
     case "SET_DIARY_CARDS": 
         return action.payload
-    
+        
+    case "ADD_DIARY_CARD":
+        return [...state, action.payload]
+            
     default: 
         return state
-    
     }
 }
