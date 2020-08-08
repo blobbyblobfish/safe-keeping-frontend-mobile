@@ -31,7 +31,7 @@ function DiaryCards( { navigation, state } ) {
   const renderDiaryCards = () => {
     //** TO DO ** Filter by selected date
     return state.diary_cards.map(diary_card => 
-      <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
+      <DiaryCard key={diary_card.id} diaryCard={diary_card} fullDate={fullDate} navigation={navigation} />
     )
   }
 
