@@ -12,6 +12,7 @@ import HelpButton from '../screens/HelpButton'
 
 import NewDiaryCard from '../forms/NewDiaryCard'
 import NewDiaryCardTracker from '../forms/NewDiaryCardTracker'
+import NewTracker from '../forms/NewTracker'
 import EditDiaryCard from '../forms/EditDiaryCard'
 import NewCopingSkill from '../forms/NewCopingSkill'
 import EditProfile from "../forms/EditProfile"
@@ -33,6 +34,7 @@ const MoreStackNavigator = () => {
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Trends" component={Trends} />
+        <Stack.Screen name="New Tracker" component={NewTracker} />
     </Stack.Navigator>
   )
 }

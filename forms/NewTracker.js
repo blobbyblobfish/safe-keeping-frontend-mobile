@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
-export default function Trends( { navigation } ) {
-
+export default function NewTracker() {
+  
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -14,10 +14,7 @@ export default function Trends( { navigation } ) {
   
   return (
     <View style={styles.container}>
-      <Text>Trends!</Text>
-
-      {/* Stretch Feature */}
-      <Button title="Add New Tracker" onPress={() => navigation.navigate("New Tracker")}/>
+      <Text>New Tracker!</Text>
     </View>
   )
 }
