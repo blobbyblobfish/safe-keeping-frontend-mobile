@@ -1,7 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 
-export default function DiaryCard({ diaryCard, fullDate, navigation }) {
+export default function DiaryCard({ diaryCard, navigation }) {
+    
+    //Date conversion
+    const datestring = diaryCard.created_at.slice(0, 10)
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const month = months[parseInt(datestring.slice(5, 7)) - 1]
+    const day = datestring.slice(9, 11)
+    const year = datestring.slice(0, 4)
     
     //Time conversion
     const utcTime = diaryCard.created_at.slice(11, 16)
@@ -31,7 +38,7 @@ export default function DiaryCard({ diaryCard, fullDate, navigation }) {
         hour = conversions[hour]
     }
 
-    console.log(`${timezone}: ${hour}:${minute} ${period}`)
+    // console.log(`${timezone}: ${hour}:${minute} ${period}`)
         
     //Diary Card Trackers
     const renderDiaryCardTrackers = () => {
@@ -47,7 +54,7 @@ export default function DiaryCard({ diaryCard, fullDate, navigation }) {
     //Diary Cards
     return (
         <View key={diaryCard.id}>
-            <Text>{fullDate}</Text>
+            <Text>{month} {day} {year}</Text>
             <Text>{`${hour}:${minute} ${period}`}</Text>
             <Text>{diaryCard.feelings}</Text>
             <Text>{diaryCard.thoughts}</Text>

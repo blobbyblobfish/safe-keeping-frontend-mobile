@@ -22,16 +22,19 @@ function DiaryCards( { navigation, state } ) {
   if (date.month < 10) {
     datestring = `${date.year}-0${date.month}-${date.day}`
   }
-
+  
   if (date.day < 10) {
     datestring = `${date.year}-0${date.month}-0${date.day}`
   }
-
-  //Render Diary Cards
+  
   const renderDiaryCards = () => {
-    //** TO DO ** Filter by selected date
-    return state.diary_cards.map(diary_card => 
-      <DiaryCard key={diary_card.id} diaryCard={diary_card} fullDate={fullDate} navigation={navigation} />
+    
+    //Filter by selected date
+    const filteredDiaryCards = state.diary_cards.filter(diary_card => diary_card.created_at.slice(0, 10) === datestring)
+    
+    //Render Diary Cards
+    return filteredDiaryCards.map(diary_card => 
+      <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
     )
   }
 
