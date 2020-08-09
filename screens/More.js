@@ -28,6 +28,7 @@ export default function More({ navigation }) {
           />
           <Button
             title="Logout"
+            onPress={() => {console.log("logout")}}
         />
     </View>
   )
