@@ -17,6 +17,7 @@ import NewEmergencyContact from '../forms/NewEmergencyContact'
 import EditEmergencyContact from '../forms/EditEmergencyContact'
 import NewTracker from '../forms/NewTracker'
 import NewCopingSkill from '../forms/NewCopingSkill'
+import EditCopingSkill from '../forms/EditCopingSkill'
 import EditProfile from "../forms/EditProfile"
 
 const Stack = createStackNavigator()
@@ -68,6 +69,7 @@ const CopingSkillsStackNavigator = () => {
     <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="Coping Skills" component={CopingSkills} />
         <Stack.Screen name="New Coping Skill" component={NewCopingSkill} />
+        <Stack.Screen name="Edit Coping Skill" component={EditCopingSkill} />
     </Stack.Navigator>
   )
 }

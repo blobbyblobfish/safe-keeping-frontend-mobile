@@ -8,7 +8,9 @@ import {
 
 function TabNavigator(props) {
 
+  //Utility
   const Tab = createBottomTabNavigator()
+  const dispatch = props.dispatch
 
   //Load data
   useEffect(() => {
@@ -16,28 +18,34 @@ function TabNavigator(props) {
       .then(resp => resp.json())
       .then(json => {
         const user = { id: json.id, first_name: json.first_name, email: json.email }
+        const copingSkills = json.coping_skills
         const diaryCards = json.diary_cards
         const emergencyContacts = json.emergency_contacts
         const trackers = json.trackers
         
-        props.dispatch({
+        dispatch({
           type: "SET_USER",
           payload: user
         })
-        
-        props.dispatch({
-          type: "SET_TRACKERS",
-          payload: trackers
+
+        dispatch({
+          type: "SET_COPING_SKILLS",
+          payload: copingSkills
         })
 
-        props.dispatch({
+        dispatch({
           type: "SET_DIARY_CARDS",
           payload: diaryCards
         })
 
-        props.dispatch({
+        dispatch({
           type: "SET_EMERGENCY_CONTACTS",
           payload: emergencyContacts
+        })
+
+        dispatch({
+          type: "SET_TRACKERS",
+          payload: trackers
         })
 
       })
