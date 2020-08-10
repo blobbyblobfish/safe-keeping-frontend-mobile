@@ -7,16 +7,26 @@ export default function DiaryCard({ diaryCard, navigation }) {
     const datestring = diaryCard.created_at.slice(0, 10)
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const month = months[parseInt(datestring.slice(5, 7)) - 1]
-    const day = datestring.slice(9, 11)
+    let day = datestring.slice(9, 11)
     const year = datestring.slice(0, 4)
     
     //Time conversion
     const utcTime = diaryCard.created_at.slice(11, 16)
     const timezone = "Eastern"
+    const offset = 4
 
-    let hour = utcTime.slice(0, 2) - 4
+    let utcHour = utcTime.slice(0, 2)
+    let localHour = utcHour - offset
     const minute = utcTime.slice(3)
-    const period = hour > 11 ? "pm" : "am"
+    const period = localHour > 11 ? "pm" : "am"
+
+    //Deal with time zone offset
+    // console.log(month, day, hour, period)
+
+    if (localHour < offset && period === 'am') {
+        day = day - 1
+        localHour = 24 - utcHour
+    }
     
     //Military time conversion
     const conversions = {
@@ -34,11 +44,9 @@ export default function DiaryCard({ diaryCard, navigation }) {
         0: 12
     }
 
-    if (hour > 12) {
-        hour = conversions[hour]
+    if (localHour > 12) {
+        localHour = conversions[localHour]
     }
-
-    // console.log(`${timezone}: ${hour}:${minute} ${period}`)
         
     //Diary Card Trackers
     const renderDiaryCardTrackers = () => {
@@ -55,7 +63,7 @@ export default function DiaryCard({ diaryCard, navigation }) {
     return (
         <View key={diaryCard.id}>
             <Text>{month} {day} {year}</Text>
-            <Text>{`${hour}:${minute} ${period}`}</Text>
+            <Text>{`${localHour}:${minute} ${period}`}</Text>
             <Text>{diaryCard.feelings}</Text>
             <Text>{diaryCard.thoughts}</Text>
             {renderDiaryCardTrackers()}
