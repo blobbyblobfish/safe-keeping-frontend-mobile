@@ -46,7 +46,7 @@ function NewCopingSkill( { navigation, state, dispatch } ) {
 
       <Button title="Submit" onPress={() => {
         const newCopingSkill = {
-          user_id: state.user.id,
+          user_id: state.auth.id,
           name: name,
           description: description,
           directions: directions,

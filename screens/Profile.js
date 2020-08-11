@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View, Button } from 'react-native'
 
-function Profile({ state, dispatch, navigation }) {
+function Profile({ state, navigation }) {
 
   const styles = StyleSheet.create({
     container: {
@@ -10,26 +10,29 @@ function Profile({ state, dispatch, navigation }) {
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
-    },
+    }
   })
   
   return (
     <View style={styles.container}>
       <Text>{state.auth.firstName}</Text>
       <Text>{state.auth.email}</Text>
-        <Button
-            title="Edit Account"
-            onPress={() => navigation.navigate("Edit Account")}
+      <Button
+          title="Edit Account"
+          onPress={() => navigation.navigate("Edit Account")}
       />
+
       <Text>Trophies</Text>
-                <Button
-            title="Trends"
-            onPress={() => navigation.navigate("Trends")} 
-          />
-          <Button
-            title="Settings"
-            onPress={() => navigation.navigate("Settings")} 
-          />
+
+      <Button
+        title="Trends"
+        onPress={() => navigation.navigate("Trends")} 
+      />
+
+      <Button
+        title="Settings"
+        onPress={() => navigation.navigate("Settings")} 
+      />
     </View>
   )
 }

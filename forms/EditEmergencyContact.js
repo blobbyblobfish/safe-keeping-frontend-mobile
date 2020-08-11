@@ -43,7 +43,7 @@ function EditEmergencyContact({ route, state, dispatch, navigation }) {
             <Button title="Submit" onPress={() => {
                 const updatedEmergencyContact = {
                     id: id,
-                    user_id: state.user.id,
+                    user_id: state.auth.id,
                     name: newName,
                     phone_number: newPhoneNumber,
                     professional: therapist

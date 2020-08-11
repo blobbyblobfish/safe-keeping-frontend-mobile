@@ -64,7 +64,7 @@ function NewEmergencyContact({ route, navigation, state, dispatch }) {
                 
             //Create new emergency contact object in database
             const newEmergencyContact = {
-                user_id: state.user.id,
+                user_id: state.auth.id,
                 name: name,
                 phone_number: phoneNumber,
                 professional: therapist

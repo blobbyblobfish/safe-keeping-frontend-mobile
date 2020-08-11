@@ -1,27 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Text, View, Button } from 'react-native'
-import * as SecureStore from 'expo-secure-store'
 
-function SplashScreen( { route, state, dispatch, navigation } ) {
-    
-    //Props from Route Params
-    const setAuth = route.params.screenProps
+function SplashScreen( { state, navigation } ) {
 
-    function renderComponents() {
-        SecureStore.getItemAsync("token")
-        .then((token) => {
-            if (token) {
-                dispatch({
-                    type: "LOGIN",
-                    payload: token
-                })
-
-                //Render Tab Navigation if token is found
-                setAuth(true)
-            }
-        })
-        
+    function renderComponents() {     
         if (!state.auth.token) {
             return (
                 <View>

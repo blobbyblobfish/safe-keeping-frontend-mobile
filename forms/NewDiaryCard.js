@@ -43,7 +43,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
         title="Next"
         onPress={() => {
           const newDiaryCard = {
-            user_id: state.user.id,
+            user_id: state.auth.id,
             thoughts: thoughts,
             feelings: feelings
           }

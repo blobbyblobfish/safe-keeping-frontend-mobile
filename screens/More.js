@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { StyleSheet, View, Button } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 
-function More({ route, dispatch, navigation }) {
+function More( { dispatch, navigation } ) {
     
   const styles = StyleSheet.create({
     container: {
@@ -13,9 +13,6 @@ function More({ route, dispatch, navigation }) {
       justifyContent: 'center',
     },
   })
-
-  //Props from Route Params
-  const setAuth = route.params.screenProps
   
   return (
       <View style={styles.container}>
@@ -30,9 +27,6 @@ function More({ route, dispatch, navigation }) {
 
               //reset State
               dispatch({type: "LOGOUT", payload: {token: ''}})
-
-              //reload App and send user to Splash page
-              setAuth(false)
 
             }}
         />

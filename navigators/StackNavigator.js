@@ -21,7 +21,7 @@ import EditEmergencyContact from '../forms/EditEmergencyContact'
 import NewTracker from '../forms/NewTracker'
 import NewCopingSkill from '../forms/NewCopingSkill'
 import EditCopingSkill from '../forms/EditCopingSkill'
-import EditProfile from "../forms/EditProfile"
+import EditAccount from "../forms/EditAccount"
 
 const Stack = createStackNavigator()
 
@@ -55,11 +55,11 @@ const MoreStackNavigator = (screenProps) => {
   )
 }
 
-const ProfileStackNavigator = () => {
+const ProfileStackNavigator = (screenProps) => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Edit Account" component={EditProfile} />
+        <Stack.Screen name="Edit Account" component={EditAccount} initialParams={screenProps} />
         <Stack.Screen name="Trends" component={Trends} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="New Tracker" component={NewTracker} />

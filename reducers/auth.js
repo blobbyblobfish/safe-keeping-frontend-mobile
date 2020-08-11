@@ -17,6 +17,14 @@ export default (state = initialState, action) => {
         
         case "LOGOUT":
             return initialState
+        
+        case "UPDATE_ACCOUNT":
+            return {
+                token: state.token,
+                id: action.payload.id,
+                email: action.payload.email,
+                firstName: action.payload.first_name
+            }
 
         default: return state
     }
