@@ -58,8 +58,8 @@ function EditAccount({ state, navigation, dispatch }) {
         fetch(`http://localhost:3000/users/${state.auth.id}`, { method: "DELETE" })
           .then(resp => resp.json())
           .then(json => {
+            
             SecureStore.deleteItemAsync("token")
-
             dispatch({ type: "LOGOUT", payload: { token: '' } })
           })
           .catch(console.log)
