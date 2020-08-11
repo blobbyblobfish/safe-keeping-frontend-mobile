@@ -10,7 +10,7 @@ function AppRoot( { state, dispatch } ) {
   
   console.log("IN APP ROOT", state)
 
-  //Check for persisting token
+  //**TO DO** Check for persisting token
   // SecureStore.getItemAsync("token")
   // .then((token) => {
   //     if (token) {
@@ -23,7 +23,7 @@ function AppRoot( { state, dispatch } ) {
 
   //Return Tab Navigator if logged in. Otherwise return Splash Screen.
   function renderTabs () {
-    if (state.auth.token) {
+    if (!state.auth.token) {
       return <TabNavigator />
     }
 

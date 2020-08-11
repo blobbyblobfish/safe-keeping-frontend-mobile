@@ -9,7 +9,14 @@ import Settings from "../screens/Settings"
 import Trends from "../screens/Trends"
 import DiaryCards from "../screens/DiaryCards"
 import CopingSkills from "../screens/CopingSkills"
+
 import HelpButton from '../screens/HelpButton'
+import ChooseASkill from '../screens/ChooseASkill'
+import TryThisOne from '../screens/TryThisOne'
+import UpNext from '../screens/UpNext'
+import CallAFriend from '../screens/CallAFriend'
+import CallATherapist from '../screens/CallATherapist'
+import CallAHotline from '../screens/CallAHotline'
 
 import Login from '../forms/Login'
 import Register from '../forms/Register'
@@ -92,6 +99,12 @@ const HelpButtonStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Help Button" component={HelpButton} />
+      <Stack.Screen name="Choose A Skill" component={ChooseASkill} />
+      <Stack.Screen name="Try This One" component={TryThisOne} />
+      <Stack.Screen name="What's Up Next?" component={UpNext} />
+      <Stack.Screen name="Call A Friend" component={CallAFriend} />
+      <Stack.Screen name="Call A Therapist" component={CallATherapist} />
+      <Stack.Screen name="Call A Hotline" component={CallAHotline} />
   </Stack.Navigator>
   )
 }
