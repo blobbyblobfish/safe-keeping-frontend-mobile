@@ -31,6 +31,9 @@ export default (state = initialState, action) => {
             })
             return remainingContacts
         
+        case "LOGOUT":
+            return initialState
+        
         default: 
             return state
     }

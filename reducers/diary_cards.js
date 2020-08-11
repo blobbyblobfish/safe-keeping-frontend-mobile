@@ -31,7 +31,10 @@ export default (state = initialState, action) => {
         const remainingDiaryCards = state.filter(diaryCard => {
             return diaryCard.id !== action.payload.id
         })
-        return remainingDiaryCards
+            return remainingDiaryCards
+        
+    case "LOGOUT":
+        return initialState
             
     default: 
         return state

@@ -1,54 +1,66 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import * as SecureStore from 'expo-secure-store'
+
 import {
-  CopingSkillsStackNavigator, DiaryCardStackNavigator, MoreStackNavigator,
-  HelpButtonStackNavigator, ProfileStackNavigator
+  ProfileStackNavigator, MoreStackNavigator,
+  DiaryCardStackNavigator, CopingSkillsStackNavigator, HelpButtonStackNavigator
 } from "./StackNavigator"
 
-function TabNavigator(props) {
+function TabNavigator( { state, dispatch, screenProps } ) {
 
   //Utility
   const Tab = createBottomTabNavigator()
-  const dispatch = props.dispatch
-
+  const setAuth = screenProps
+  
   //Load data
   useEffect(() => {
-    fetch("http://localhost:3000/users/5")
+    // fetch(`http://localhost:3000/users/${state.auth.id}`)
+    fetch(`http://localhost:3000/users/5`)
       .then(resp => resp.json())
       .then(json => {
-        const user = { id: json.id, first_name: json.first_name, email: json.email }
         const copingSkills = json.coping_skills
         const diaryCards = json.diary_cards
         const emergencyContacts = json.emergency_contacts
         const trackers = json.trackers
-        
+
+        //TEST
         dispatch({
-          type: "SET_USER",
-          payload: user
+          type: "LOGIN",
+          payload: {token: "abc", user: {id: 5, first_name: "Alice", email: "alice@email.com"}}
         })
 
-        dispatch({
-          type: "SET_COPING_SKILLS",
-          payload: copingSkills
-        })
+        if (copingSkills) {
+          dispatch({
+            type: "SET_COPING_SKILLS",
+            payload: copingSkills
+          })
+        }
 
-        dispatch({
-          type: "SET_DIARY_CARDS",
-          payload: diaryCards
-        })
+        if (diaryCards) {
+          dispatch({
+            type: "SET_DIARY_CARDS",
+            payload: diaryCards
+          })
+        }
 
-        dispatch({
-          type: "SET_EMERGENCY_CONTACTS",
-          payload: emergencyContacts
-        })
+        if (emergencyContacts) {
+          dispatch({
+            type: "SET_EMERGENCY_CONTACTS",
+            payload: emergencyContacts
+          })
+        }
 
-        dispatch({
-          type: "SET_TRACKERS",
-          payload: trackers
-        })
+        if (trackers) {
+          dispatch({
+            type: "SET_TRACKERS",
+            payload: trackers
+          })
+        }
 
-      })
+      }
+    )
   }, [])
 
   return (
@@ -57,7 +69,7 @@ function TabNavigator(props) {
       <Tab.Screen name="Skills" component={CopingSkillsStackNavigator} />
       <Tab.Screen name="Help!" component={HelpButtonStackNavigator} />
       <Tab.Screen name="Profile" component={ProfileStackNavigator} />
-      <Tab.Screen name="More" component={MoreStackNavigator} />
+      <Tab.Screen name="More" children={() => <MoreStackNavigator screenProps={setAuth} />} />
     </Tab.Navigator>
   )
 }

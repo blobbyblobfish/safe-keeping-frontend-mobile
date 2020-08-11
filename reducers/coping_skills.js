@@ -33,6 +33,9 @@ export default (state = initialState, action) => {
             })
             return remainingCopingSkills
         
+        case "LOGOUT":
+            return initialState
+        
         default: 
             return state
     }

@@ -5,7 +5,10 @@ export default (state = initialState, action) => {
 
     case "SET_TRACKERS": 
         return action.payload
-                    
+
+    case "LOGOUT":
+        return initialState
+        
     default: 
         return state
     }

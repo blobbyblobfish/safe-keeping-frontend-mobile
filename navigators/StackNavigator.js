@@ -1,6 +1,7 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 
+import SplashScreen from "../screens/SplashScreen"
 import Profile from "../screens/Profile"
 import About from "../screens/About"
 import More from "../screens/More"
@@ -10,6 +11,8 @@ import DiaryCards from "../screens/DiaryCards"
 import CopingSkills from "../screens/CopingSkills"
 import HelpButton from '../screens/HelpButton'
 
+import Login from '../forms/Login'
+import Register from '../forms/Register'
 import NewDiaryCard from '../forms/NewDiaryCard'
 import NewDiaryCardTracker from '../forms/NewDiaryCardTracker'
 import EditDiaryCard from '../forms/EditDiaryCard'
@@ -27,19 +30,27 @@ const screenOptionStyle = {
     backgroundColor: "#9AC4F8",
   },
   headerTintColor: "white",
-  headerBackTitle: "Back",
+  headerBackTitle: "Back"
 }
 
-const MoreStackNavigator = () => {
+const SplashScreenStackNavigator = (screenProps) => {
   return (
-    <Stack.Navigator screenOptions={screenOptionStyle}>
-        <Stack.Screen name="More" component={More} />
+    <Stack.Navigator initialRouteName="Splash Screen" screenOptions={screenOptionStyle}>
+      {/* **TO DO** change header style */}
+      <Stack.Screen name="Safe Keeping" component={SplashScreen} initialParams={screenProps} />
+      <Stack.Screen name="Login" component={Login} initialParams={screenProps} />
+      <Stack.Screen name="Create An Account" component={Register} initialParams={screenProps} />
+    </Stack.Navigator>
+  )
+}
+
+const MoreStackNavigator = (screenProps) => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>  
+        <Stack.Screen name="More" component={More} initialParams={screenProps}/>
         <Stack.Screen name="About" component={About} />
-        <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="New Emergency Contact" component={NewEmergencyContact} />
         <Stack.Screen name="Edit Emergency Contact" component={EditEmergencyContact} />
-        <Stack.Screen name="Trends" component={Trends} />
-        <Stack.Screen name="New Tracker" component={NewTracker} />
     </Stack.Navigator>
   )
 }
@@ -48,7 +59,10 @@ const ProfileStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="Edit Account" component={EditProfile} />
+        <Stack.Screen name="Trends" component={Trends} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="New Tracker" component={NewTracker} />
     </Stack.Navigator>
   )
 }
@@ -83,6 +97,6 @@ const HelpButtonStackNavigator = () => {
 }
 
 export {
-  ProfileStackNavigator, MoreStackNavigator, DiaryCardStackNavigator,
-  CopingSkillsStackNavigator, HelpButtonStackNavigator
+  SplashScreenStackNavigator, ProfileStackNavigator, MoreStackNavigator,
+  DiaryCardStackNavigator, CopingSkillsStackNavigator, HelpButtonStackNavigator
 }

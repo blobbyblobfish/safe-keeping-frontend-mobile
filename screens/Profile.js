@@ -1,7 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, Text, View, Button } from 'react-native'
 
-export default function Profile({ navigation }) {
+function Profile({ state, dispatch, navigation }) {
 
   const styles = StyleSheet.create({
     container: {
@@ -14,11 +15,23 @@ export default function Profile({ navigation }) {
   
   return (
     <View style={styles.container}>
-        <Text>Profile!</Text>
+      <Text>{state.auth.firstName}</Text>
+      <Text>{state.auth.email}</Text>
         <Button
-            title="Edit Profile"
-            onPress={() => navigation.navigate("EditProfile")}
-        />
+            title="Edit Account"
+            onPress={() => navigation.navigate("Edit Account")}
+      />
+      <Text>Trophies</Text>
+                <Button
+            title="Trends"
+            onPress={() => navigation.navigate("Trends")} 
+          />
+          <Button
+            title="Settings"
+            onPress={() => navigation.navigate("Settings")} 
+          />
     </View>
   )
 }
+
+export default connect((state) => ({state}))(Profile)
