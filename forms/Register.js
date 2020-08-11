@@ -3,11 +3,8 @@ import { connect } from 'react-redux'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 
-function Register({ route, dispatch, navigation }) {
+function Register( { dispatch } ) {
     
-    //Props from Route Params
-    const setAuth = route.params.screenProps
-
     //Controlled inputs
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -43,6 +40,11 @@ function Register({ route, dispatch, navigation }) {
                 fetch(`http://localhost:3000/users`, configObj)
                     .then(resp => resp.json())
                     .then(json => {
+                        const copingSkills = json.user.coping_skills
+                        const diaryCards = json.user.diary_cards
+                        const emergencyContacts = json.user.emergency_contacts
+                        const trackers = json.user.trackers
+
                         if (json.token) {
                             dispatch({
                                 type: "LOGIN",
@@ -50,11 +52,35 @@ function Register({ route, dispatch, navigation }) {
                             })
                         }
 
-                        setAuth(!!json.token)
+                        if (copingSkills) {
+                            dispatch({
+                                type: "SET_COPING_SKILLS",
+                                payload: copingSkills
+                            })
+                        }
+
+                        if (diaryCards) {
+                            dispatch({
+                                type: "SET_DIARY_CARDS",
+                                payload: diaryCards
+                            })
+                        }
+
+                        if (emergencyContacts) {
+                            dispatch({
+                                type: "SET_EMERGENCY_CONTACTS",
+                                payload: emergencyContacts
+                            })
+                        }
+
+                        if (trackers) {
+                            dispatch({
+                                type: "SET_TRACKERS",
+                                payload: trackers
+                            })
+                        }
 
                         SecureStore.setItemAsync("token", json.token)
-
-                        navigation.navigate("Safe Keeping")
                     })
             }}/>
         </View>
