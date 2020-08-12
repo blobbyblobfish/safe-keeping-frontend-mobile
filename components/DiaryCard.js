@@ -1,14 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { Text, View, Button } from 'react-native'
+import styles from '../StyleSheet'
 
 export default function DiaryCard({ diaryCard, navigation }) {
-    console.log(diaryCard)    
+        
     //Date conversion
     const dateObj = new Date(diaryCard.entry_timestamp)
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const month = months[dateObj.getMonth()]
-    let day = dateObj.getDate()
-    const year = dateObj.getFullYear()
     
     //Time conversion
     const minute = dateObj.getMinutes()
@@ -22,10 +19,12 @@ export default function DiaryCard({ diaryCard, navigation }) {
     const newDateString = dateObj.toISOString().replace('T', ' ').slice(0, 16)
 
     let localHour = newDateString.slice(11, 13)
+
+    console.log(localHour.split(''))
     
     //Remove prepending zeroes
     if (parseInt(localHour.split('')) === 0) {
-        localHour = localHour.slice(0, 1)
+        localHour = localHour.slice(1, 2)
     }
 
     const period = parseInt(localHour) > 11 ? "pm" : "am"
@@ -46,22 +45,30 @@ export default function DiaryCard({ diaryCard, navigation }) {
     const renderDiaryCardTrackers = () => {
         if (diaryCard.diary_card_trackers) {
         return diaryCard.diary_card_trackers.map(tracker =>
-            <View key={tracker}>
-                <Text>{tracker.tracker.name}</Text>
-                <Text>{tracker.score}</Text>
-            </View>)
+            <Text key={tracker.id}>{tracker.tracker.name}: {tracker.score}</Text>
+        )
         }
     }
 
     //Diary Cards
     return (
         <View key={diaryCard.id}>
-            <Text>{month} {day} {year}</Text>
-            <Text>{`${localHour}:${minute} ${period}`}</Text>
-            <Text>{diaryCard.feelings}</Text>
-            <Text>{diaryCard.thoughts}</Text>
-            {renderDiaryCardTrackers()}
-            <Button title="Edit" onPress={() => navigation.navigate("Edit Diary Card", {diaryCard: diaryCard})}/>
+            
+            <View style={styles.p} >
+                <Text>{`${localHour}:${minute} ${period}`}                                                                {renderDiaryCardTrackers()}</Text>
+            </View>
+
+            <View style={styles.p} >
+                {diaryCard.feelings === '' ? null : <Text>{diaryCard.feelings}</Text>}
+            </View>
+            
+            <View>
+                {diaryCard.thoughts === '' ? null : <Text>{diaryCard.thoughts}</Text>}
+            </View>
+            
+            <View style={{ alignItems: 'flex-end', paddingBottom: 20 }} >
+                <Button title="Edit" onPress={() => navigation.navigate("Edit Diary Card", { diaryCard: diaryCard })} />
+            </View>
         </View>
     )
 

@@ -27,8 +27,9 @@ function NewDiaryCardTrackers ( {route, navigation, state, dispatch } ) {
         
     return (
         <View style={styles.container}>
-        <Text>{`${date} ${time}`}</Text>    
-        <Text style={styles.container}>Rate your Mood</Text>
+            
+        <Text style={{paddingTop:20, paddingBottom:20}}>{`${date}       ${time}`}</Text>    
+        <Text style={{paddingBottom: 10}}>Rate your Mood</Text>
         <Text>{moodScore}</Text>
         <Slider 
             style={{width: 350, height: 40}}

@@ -1,26 +1,22 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { Text, View, ScrollView, Button } from 'react-native'
 import { Calendar } from 'react-native-calendars'
+
 import DiaryCard from '../components/DiaryCard'
+import styles from '../StyleSheet'
 
-function DiaryCards( { navigation, state, } ) {
-
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#fff',
-    }
-  })
+function DiaryCards({ navigation, state, }) {
 
   //***DATE SELECTION***
   //Set default selected date to today
   const today = new Date()
   const [date, setDate] = useState({ year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() })
   
-  //Convert selected date to full date and date-string 
+  //Convert selected date to date-string and full date
+  let datestring = `${date.year}-${date.month}-${date.day}`
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const fullDate = `${months[date.month - 1]} ${date.day} ${date.year}`
-  let datestring = `${date.year}-${date.month}-${date.day}`
 
   //Convert datestring month to double digits
   if (date.month < 10) {
@@ -33,7 +29,6 @@ function DiaryCards( { navigation, state, } ) {
   }
   
   //***UTC CONVERSION***
-
   function returnDatestring(timestamp) {
     const convertedDate = new Date(timestamp)
 
@@ -51,7 +46,7 @@ function DiaryCards( { navigation, state, } ) {
     return `${convertedDate.getFullYear()}-${convertedMonth}-${convertedDay}`
   }
 
-  //for Diary Cards
+  //For Diary Cards
   const renderDiaryCards = () => {
   
     //Filter by selected date
@@ -62,8 +57,7 @@ function DiaryCards( { navigation, state, } ) {
     //Render Diary Cards
     return filteredDiaryCards.map(diary_card => {
       return <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
-    }
-    )
+    })
   }
 
   //Mark dates on calendar
@@ -90,7 +84,7 @@ function DiaryCards( { navigation, state, } ) {
   }
 
   return (  
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollView}>
       
       <Calendar
         hideExtraDays={true}
@@ -99,14 +93,18 @@ function DiaryCards( { navigation, state, } ) {
         markedDates={markedDates()}
       />
 
-      {<Button title="New Diary Card"
-        onPress={() => navigation.navigate("New Diary Card", {datestring: datestring})}
-      />}
+      <View style={{padding: 10}}>
+        <Button title="New Diary Card"
+          onPress={() => navigation.navigate("New Diary Card", {datestring: datestring})}
+        />
+      </View>
 
-      <Text style={{ fontWeight: 'bold' }}> {fullDate}</Text>
-      {renderDiaryCards()}
+      <View style={styles.diaryCard}>
+        <Text style={styles.h6}>{fullDate}</Text>
+        {renderDiaryCards()}
+      </View>
 
-    </View>
+    </ScrollView>
   )
 }
 

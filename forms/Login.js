@@ -11,8 +11,6 @@ function Login({ state, dispatch }) {
 
     return (
     <View>
-    <Text>Login</Text>
-    
     <Text>Email</Text>
     <TextInput defaultValue={email} onChangeText={(email) => setEmail(email)} />
     

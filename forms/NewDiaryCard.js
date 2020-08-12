@@ -1,34 +1,65 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { Text, TextInput, View, Button } from 'react-native'
+import styles from '../StyleSheet'
+import DateTimePickerModal from "react-native-modal-datetime-picker"
 
 function NewDiaryCard({ route, navigation, state, dispatch }) {
-
-  const styles = StyleSheet.create({
-    container: {
-      // flex: 1,
-      // flexDirection: 'column',
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  })
   
   //Controlled inputs
   const [thoughts, setThoughts] = useState('')
   const [feelings, setFeelings] = useState('')
+  const [datePickerVisibility, setDatePickerVisibility] = useState(false)
+  const [datePickerMode, setDatePickerMode] = useState('date')
 
-  // **TO DO** make default the selected date from prev page
-  // console.log(route.params)
-  // console.log(new Date(Date.parse(route.params.datestring)))
+  //Make default date the selected date from prev page
+  let datestring = route.params.datestring
+  const currentHour = new Date().getHours()
+  const currentMinute = new Date().getMinutes()
 
-  //selectedDate                                make default the selected date from prev page
-  const [selectedDateObj, setSelectedDateObj] = useState(new Date())
+  datestring = `${datestring} ${currentHour}:${currentMinute}`
+
+  const parsedDate =  Date.parse(datestring)
+  const defaultDateObj = new Date(parsedDate)
+  
+  //Get user-selected date                                
+  const [selectedDateObj, setSelectedDateObj] = useState(defaultDateObj)
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const selectedDateString = `${months[selectedDateObj.getMonth()]} ${selectedDateObj.getDate()} ${selectedDateObj.getFullYear()}`
   
-  //selectedTime
+  //Date time selection
+  const hideDatePicker = () => { setDatePickerVisibility(false) }
+
+  const selectDateTime = (dateObj) => {
+
+    let selectedYear = dateObj.getFullYear()
+    let selectedMonth = dateObj.getMonth() + 1
+    let selectedDay = dateObj.getDate()
+    let selectedHour = dateObj.getHours()
+    let selectedMinutes = dateObj.getMinutes()
+
+    //Check if date picker is resetting the time to 00:00
+    const bool = selectedMinutes === 0
+
+    //Use the default date object to set time
+    if (selectedHour === 0) {
+      if (bool) {
+        selectedHour = defaultDateObj.getHours()
+        selectedMinutes = defaultDateObj.getMinutes()
+      }
+    }
+
+    const selectedTimeString = `${selectedYear}-${selectedMonth}-${selectedDay} ${selectedHour}:${selectedMinutes}`
+
+    //Get date object based on timestring
+    const parsedSelectedDate = Date.parse(selectedTimeString)
+    const newDateObj = new Date(parsedSelectedDate)
+    setSelectedDateObj(newDateObj)
+
+    hideDatePicker()
+  }
+  
+  //Get user-selected time
   let minutes = selectedDateObj.getMinutes()
   
   if (minutes < 10) {
@@ -42,20 +73,13 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
     period = 'pm'
   }
 
+  console.log(hour)
+
   //Military time conversion
   const conversions = {
-    13: 1,
-    14: 2,
-    15: 3,
-    16: 4,
-    17: 5,
-    18: 6,
-    19: 7,
-    20: 8,
-    21: 9,
-    22: 10,
-    23: 11,
-    0: 12
+    13: 1, 14: 2, 15: 3, 16: 4,
+    17: 5, 18: 6, 19: 7, 20: 8,
+    21: 9, 22: 10, 23: 11, 0: 12
   }
 
   if (hour > 12 || hour === 0) {
@@ -63,26 +87,45 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
   }
 
   const selectedTimeString = `${hour}:${minutes} ${period}`
-    
+  
   return (
     <View style={styles.container}>
       
       {/* Render selected date and time string from object */}
-      <Text>{selectedDateString}</Text>
-      <Text>{selectedTimeString}</Text>
-      <Button title="Set Date" onPress={() => {navigation.navigate("Set Date Time", {mode: 'date', setSelectedDateObj: setSelectedDateObj})}} />
-      <Button title="Set Time" onPress={() => {navigation.navigate("Set Date Time", {mode: 'time', setSelectedDateObj: setSelectedDateObj})}} />
+      <View style={{padding: 80, flexDirection: 'row', justifyContent: 'space-around'}}>
+        <Button title={selectedDateString} onPress={() => {
+          setDatePickerVisibility(true)
+          setDatePickerMode('date')
+        }} />
+        <Button title={selectedTimeString} onPress={() => {
+          setDatePickerVisibility(true)
+          setDatePickerMode('time')
+        }} />
+
+        <DateTimePickerModal
+          isVisible={datePickerVisibility}
+          headerTextIOS={""}
+          date={selectedDateObj}
+          mode={datePickerMode}
+          onConfirm={selectDateTime}
+          onCancel={hideDatePicker}
+          maximumDate={new Date()}
+        />
+      </View>
       
-      <Text style={styles.container}>How are you feeling?</Text>
+      <Text style={{paddingBottom: 10}}>How are you feeling?</Text>
       <TextInput
-        style={{height: 100, width: 200}}
+        style={{ height: 100, width: 300 }}
+        multiline={true}
         placeholder="Right now, I am feeling..."
         onChangeText={feelings => setFeelings(feelings)}
         defaultValue={feelings}
       />
-      <Text style={styles.container}>What's on your mind?</Text>
+
+      <Text style={{paddingBottom: 10}}>What's on your mind?</Text>
       <TextInput
-        style={{height: 100, width: 200}}
+        style={{ height: 100, width: 300 }}
+        multiline={true}
         placeholder="Right now, I am thinking..."
         onChangeText={thoughts => setThoughts(thoughts)}
         defaultValue={thoughts}

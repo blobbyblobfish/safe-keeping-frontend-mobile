@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Linking } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import EmergencyContact from '../components/EmergencyContact'
 
 function CallAFriend({ state }) {

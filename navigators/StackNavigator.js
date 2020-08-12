@@ -8,7 +8,6 @@ import More from "../screens/More"
 import Settings from "../screens/Settings"
 import Trends from "../screens/Trends"
 import DiaryCards from "../screens/DiaryCards"
-import DateTimePicker from "../screens/DateTimePicker"
 import CopingSkills from "../screens/CopingSkills"
 
 import HelpButton from '../screens/HelpButton'
@@ -80,7 +79,6 @@ const DiaryCardStackNavigator = () => {
     <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="Diary Cards" component={DiaryCards} />
         <Stack.Screen name="New Diary Card" component={NewDiaryCard} />
-        <Stack.Screen name="Set Date Time" component={DateTimePicker} />
         <Stack.Screen name="New Diary Card " component={NewDiaryCardTracker} />
         <Stack.Screen name="Edit Diary Card" component={EditDiaryCard} />
     </Stack.Navigator>

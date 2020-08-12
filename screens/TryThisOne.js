@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { Text, View, Button } from 'react-native'
+import CopingSkill from '../components/CopingSkill'
 
 function TryThisOne( { state, navigation } ) {
 
