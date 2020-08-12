@@ -57,8 +57,6 @@ const MoreStackNavigator = () => {
     <Stack.Navigator screenOptions={screenOptionStyle}>  
         <Stack.Screen name="More" component={More} />
         <Stack.Screen name="About" component={About} />
-        <Stack.Screen name="New Emergency Contact" component={NewEmergencyContact} />
-        <Stack.Screen name="Edit Emergency Contact" component={EditEmergencyContact} />
     </Stack.Navigator>
   )
 }
@@ -70,6 +68,8 @@ const ProfileStackNavigator = (screenProps) => {
         <Stack.Screen name="Edit Account" component={EditAccount} initialParams={screenProps} />
         <Stack.Screen name="Trends" component={Trends} />
         <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="New Emergency Contact" component={NewEmergencyContact} />
+        <Stack.Screen name="Edit Emergency Contact" component={EditEmergencyContact} />
         <Stack.Screen name="New Tracker" component={NewTracker} />
     </Stack.Navigator>
   )

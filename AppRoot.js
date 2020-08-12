@@ -24,14 +24,12 @@ function AppRoot( { state, dispatch } ) {
     SecureStore.getItemAsync("token")
     .then((token) => {
       if (token) {
-        // const id = token.slice(84)
-        const id = 31
+        const id = token.slice(84)
         
         fetch(`http://localhost:3000/users/${id}`)
           .then(resp => resp.json())
           .then(json => {
-            console.log(json)
-
+            
             const copingSkills = json.coping_skills
             const diaryCards = json.diary_cards
             const emergencyContacts = json.emergency_contacts

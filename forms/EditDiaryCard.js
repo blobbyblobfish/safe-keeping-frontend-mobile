@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import Slider from '@react-native-community/slider'
@@ -19,17 +19,20 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
     const [thoughts, setThoughts] = useState(diaryCard.thoughts)
     const [feelings, setFeelings] = useState(diaryCard.feelings)
     const [moodScore, setMoodScore] = useState(0)
-    
-    if (!!diaryCard.diary_card_trackers[0]) {
-        setMoodScore(diaryCard.diary_card_trackers[0].score)
-    }
+
+    useEffect(() => {
+        if (!!diaryCard.diary_card_trackers[0]) {
+            setMoodScore(diaryCard.diary_card_trackers[0].score)
+        }
+    }, [])
 
     function renderDiaryCardTracker() {
+
         if (!!diaryCard.diary_card_trackers[0]) {
             return <View>
                 <Text>Mood</Text>
-                <Text>{moodScore}</Text>
-                <Slider 
+                 <Text>{moodScore}</Text>
+                 <Slider 
                     style={{width: 350, height: 40}}
                     value={moodScore}
                     onValueChange={value => setMoodScore(value)}
@@ -62,16 +65,14 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
         {renderDiaryCardTracker()}
 
         <Button title="Submit" onPress={() => {
+
+            //Handle tracker update in Diary Card controller
             const updatedDiaryCard = {
                 id: diaryCard.id,
                 thoughts: thoughts,
-                feelings: feelings
-            }
-
-            const updatedMoodTracker = {
-                id: moodTracker.id,
-                score: moodScore,
-                diary_card_id: diaryCard.id
+                feelings: feelings,
+                diary_card_tracker_id: moodTracker.id,
+                score: moodScore
             }
             
             const diaryCardConfigObj = {
@@ -81,45 +82,25 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
                 },
                 body: JSON.stringify(updatedDiaryCard)
             }
-            
-            const moodTrackerConfigObj = {
-                method: "PATCH",
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify(updatedMoodTracker)
-            }
-
-            fetch(`http://localhost:3000/diary_card_trackers/${moodTracker.id}`, moodTrackerConfigObj)
-                .then(resp => resp.json())
-                .then(json => {
-                    dispatch({
-                        type: "UPDATE_DIARY_CARD",
-                        payload: {
-                            id: json.id,
-                            created_at: json.created_at,
-                            thoughts: json.thoughts,
-                            feelings: json.feelings,
-                            diary_card_trackers: json.diary_card_trackers,
-                        }
-                    })
-                })
 
             fetch(`http://localhost:3000/diary_cards/${diaryCard.id}`, diaryCardConfigObj)
-                .then(resp => resp.json())
-                .then(json => {
-                    dispatch({
-                        type: "UPDATE_DIARY_CARD",
-                        payload: {
-                            id: json.id,
-                            created_at: json.created_at,
-                            thoughts: json.thoughts,
-                            feelings: json.feelings,
-                            diary_card_trackers: json.diary_card_trackers,
-                        }
-                    })
+                    .then(resp => resp.json())
+                    .then(json => {
+                        console.log("Updated diary card", json)
 
-                    navigation.navigate("Diary Cards")
+                        dispatch({
+                            type: "UPDATE_DIARY_CARD",
+                            payload: {
+                                id: json.id,
+                                created_at: json.created_at,
+                                thoughts: json.thoughts,
+                                feelings: json.feelings,
+                                diary_card_trackers: json.diary_card_trackers,
+                                entry_timestamp: json.entry_timestamp
+                            }
+                        })
+
+                        navigation.navigate("Diary Cards")
                 })
             
         }} />
