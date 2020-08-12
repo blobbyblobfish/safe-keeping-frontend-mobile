@@ -2,9 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 
 export default function DiaryCard({ diaryCard, navigation }) {
-    
-    console.log(diaryCard.diary_card_trackers[0])
-    
+    console.log(diaryCard)    
     //Date conversion
     const dateObj = new Date(diaryCard.entry_timestamp)
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

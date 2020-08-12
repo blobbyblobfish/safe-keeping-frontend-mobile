@@ -98,8 +98,6 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
             entry_timestamp: Date.parse(selectedDateObj)
           }
 
-          console.log(newDiaryCard)
-
           const configObj = {
             method: "POST",
             headers: {
@@ -111,8 +109,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
 
           fetch(`http://localhost:3000/diary_cards`, configObj)
             .then(resp => resp.json())
-            .then(json => {         
-
+            .then(json => {                    
               dispatch({
                 type: "ADD_DIARY_CARD",
                 payload: {

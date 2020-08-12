@@ -16,8 +16,8 @@ function EditCopingSkill( { navigation, route, dispatch } ) {
     
     //Controlled inputs
     const [name, setName] = useState(copingSkill.name)
-    const [description, setDescription] = useState()
-    const [directions, setDirections] = useState()
+    const [description, setDescription] = useState(copingSkill.description)
+    const [directions, setDirections] = useState(copingSkill.directions)
     
     return <View style={styles.container}>
         <Text>Edit Coping Skill</Text>

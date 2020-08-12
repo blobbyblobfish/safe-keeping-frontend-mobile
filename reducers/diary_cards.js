@@ -26,9 +26,7 @@ export default (state = initialState, action) => {
 
             else { return diaryCard }
         })
-            
-            console.log(updatedDiaryCards)
-            
+                        
         return updatedDiaryCards
         
     case "REMOVE_DIARY_CARD":

@@ -86,8 +86,6 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
             fetch(`http://localhost:3000/diary_cards/${diaryCard.id}`, diaryCardConfigObj)
                     .then(resp => resp.json())
                     .then(json => {
-                        console.log("Updated diary card", json)
-
                         dispatch({
                             type: "UPDATE_DIARY_CARD",
                             payload: {

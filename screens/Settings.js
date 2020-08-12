@@ -15,8 +15,6 @@ function Settings( { state, navigation } ) {
     }
   })
 
-  console.log(state)
-
   const renderEmergencyContacts = () => {
     return state.emergency_contacts.map(emergency_contact => {
       return <EmergencyContact key={emergency_contact.id} navigation={navigation} emergencyContact={emergency_contact}/>

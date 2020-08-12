@@ -78,8 +78,6 @@ function EditEmergencyContact({ route, state, dispatch, navigation }) {
             }} />
 
             <Button title="Delete" onPress={() => {
-                console.log("delete")
-
                 fetch(`http://localhost:3000/emergency_contacts/${id}`, { method: "DELETE" })
                     .then(resp => resp.json())
                     .then(json => {

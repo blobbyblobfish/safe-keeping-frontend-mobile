@@ -60,8 +60,9 @@ function DiaryCards( { navigation, state, } ) {
     })
     
     //Render Diary Cards
-    return filteredDiaryCards.map(diary_card =>
-      <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
+    return filteredDiaryCards.map(diary_card => {
+      return <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
+    }
     )
   }
 

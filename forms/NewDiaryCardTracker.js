@@ -68,6 +68,7 @@ function NewDiaryCardTrackers ( {route, navigation, state, dispatch } ) {
                             thoughts: json.thoughts,
                             feelings: json.feelings,
                             diary_card_trackers: json.diary_card_trackers,
+                            entry_timestamp: json.entry_timestamp
                         }
                     })
                 })
