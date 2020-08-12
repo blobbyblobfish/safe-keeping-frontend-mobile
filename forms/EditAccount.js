@@ -35,6 +35,7 @@ function EditAccount({ state, navigation, dispatch }) {
           email: email
         }
 
+        // **TO DO** Bug fix: this doesn't work in iOS. Possibly has to do with "non serializable values" error
         const configObj = {
           method: "PATCH",
           headers: {

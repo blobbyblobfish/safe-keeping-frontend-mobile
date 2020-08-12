@@ -21,12 +21,13 @@ function NewDiaryCardTrackers ( {route, navigation, state, dispatch } ) {
     const moodTracker = state.trackers.find(tracker => tracker.name = "Mood")
     
     //Props from Route Params and state
-    const fullDate = route.params.fullDate
+    const date = route.params.selectedDateString
+    const time = route.params.selectedTimeString
     const diaryCardId = route.params.diaryCardId
         
     return (
         <View style={styles.container}>
-        <Text style={styles.container}>{fullDate}</Text>
+        <Text>{`${date} ${time}`}</Text>    
         <Text style={styles.container}>Rate your Mood</Text>
         <Text>{moodScore}</Text>
         <Slider 

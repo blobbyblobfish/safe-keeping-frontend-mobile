@@ -12,11 +12,21 @@ function AppRoot( { state, dispatch } ) {
 
   //Check for persisting token
   useEffect(() => {
+
+    // ** SHORTCUT **
+    // fetch('http://localhost:3000/users/30')
+    //   .then(resp => resp.json())
+    //   .then(json => {
+    //     console.log(json)
+    //     dispatch({type: "LOGIN", payload: {token: "abc", user: json}})
+    //   })
+    
     SecureStore.getItemAsync("token")
     .then((token) => {
       if (token) {
-        const id = token.slice(84)
-
+        // const id = token.slice(84)
+        const id = 31
+        
         fetch(`http://localhost:3000/users/${id}`)
           .then(resp => resp.json())
           .then(json => {

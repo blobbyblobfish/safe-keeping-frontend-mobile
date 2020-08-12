@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import DiaryCard from '../components/DiaryCard'
 
-function DiaryCards( { navigation, state, dispatch } ) {
+function DiaryCards( { navigation, state, } ) {
 
   const styles = StyleSheet.create({
     container: {
@@ -33,33 +33,34 @@ function DiaryCards( { navigation, state, dispatch } ) {
   }
   
   //***UTC CONVERSION***
+
+  function returnDatestring(timestamp) {
+    const convertedDate = new Date(timestamp)
+
+    let convertedDay = convertedDate.getDate()
+    let convertedMonth = convertedDate.getMonth() + 1
+
+    if (convertedMonth < 10) {
+      convertedMonth = `0${convertedMonth}`
+    }
+
+    if (convertedDay < 10) {
+      convertedDay = `0${convertedDay}`
+    }
+
+    return `${convertedDate.getFullYear()}-${convertedMonth}-${convertedDay}`
+  }
+
   //for Diary Cards
   const renderDiaryCards = () => {
   
     //Filter by selected date
     const filteredDiaryCards = state.diary_cards.filter(diary_card => {
-      if (diary_card) {
-        const createdYear = diary_card.created_at.slice(0, 4)
-        const createdMonth = diary_card.created_at.slice(5, 7)
-        let createdDay = diary_card.created_at.slice(8, 10)
-        const createdHour = diary_card.created_at.slice(11, 13)
-  
-        if (parseInt(createdHour) - 4 < 0) {
-          createdDay = parseInt(createdDay) - 1
-        
-          if (createdDay < 10) {
-            createdDay = `0${createdDay}`
-          }
-        }
-      
-        const createdDate = `${createdYear}-${createdMonth}-${createdDay}`
-        
-        return createdDate === datestring
-        }
+      return returnDatestring(diary_card.entry_timestamp) === datestring
     })
     
     //Render Diary Cards
-    return filteredDiaryCards.map(diary_card => 
+    return filteredDiaryCards.map(diary_card =>
       <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
     )
   }
@@ -73,9 +74,7 @@ function DiaryCards( { navigation, state, dispatch } ) {
 
     //Dates with diary cards
     const diaryCardDates = state.diary_cards.map(diaryCard => {
-      if (diaryCard) {
-        diaryCard.created_at.slice(0, 10)
-      }
+      return returnDatestring(diaryCard.entry_timestamp)
     })
     
     diaryCardDates.forEach(date => {
@@ -100,7 +99,7 @@ function DiaryCards( { navigation, state, dispatch } ) {
       />
 
       {<Button title="New Diary Card"
-        onPress={() => navigation.navigate("New Diary Card", {fullDate: fullDate})}
+        onPress={() => navigation.navigate("New Diary Card", {datestring: datestring})}
       />}
 
       <Text style={{ fontWeight: 'bold' }}> {fullDate}</Text>

@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
                     thoughts: action.payload.thoughts,
                     feelings: action.payload.feelings,
                     diary_card_trackers: action.payload.diary_card_trackers,
+                    entry_timestamp: action.payload.entry_timestamp
                 }
 
                 return updatedDiaryCard

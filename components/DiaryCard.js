@@ -4,47 +4,41 @@ import { StyleSheet, Text, View, Button } from 'react-native'
 export default function DiaryCard({ diaryCard, navigation }) {
     
     //Date conversion
-    const datestring = diaryCard.created_at.slice(0, 10)
+    const dateObj = new Date(diaryCard.entry_timestamp)
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const month = months[parseInt(datestring.slice(5, 7)) - 1]
-    let day = datestring.slice(9, 11)
-    const year = datestring.slice(0, 4)
+    const month = months[dateObj.getMonth()]
+    let day = dateObj.getDate()
+    const year = dateObj.getFullYear()
     
     //Time conversion
-    const utcTime = diaryCard.created_at.slice(11, 16)
-    const timezone = "Eastern"
-    const offset = 4
+    const minute = dateObj.getMinutes()
+    const utcHour = dateObj.getHours()
+    const offset = dateObj.getTimezoneOffset() / 60
+    
+    //Convert UTC to local time
+    dateObj.setHours(utcHour - offset)
 
-    let utcHour = utcTime.slice(0, 2)
-    let localHour = utcHour - offset
-    const minute = utcTime.slice(3)
-    const period = localHour > 11 ? "pm" : "am"
+    //Get converted strings
+    const newDateString = dateObj.toISOString().replace('T', ' ').slice(0, 16)
 
-    //Deal with time zone offset
-    // console.log(month, day, hour, period)
-
-    if (localHour < offset && period === 'am') {
-        day = day - 1
-        localHour = 24 - utcHour
+    let localHour = newDateString.slice(11, 13)
+    
+    //Remove prepending zeroes
+    if (parseInt(localHour.split('')) === 0) {
+        localHour = localHour.slice(0, 1)
     }
+
+    const period = parseInt(localHour) > 11 ? "pm" : "am"
     
     //Military time conversion
     const conversions = {
-        13: 1,
-        14: 2,
-        15: 3,
-        16: 4,
-        17: 5,
-        18: 6,
-        19: 7,
-        20: 8,
-        21: 9,
-        22: 10,
-        23: 11,
-        0: 12
+        13: 1, 14: 2, 15: 3,
+        16: 4, 17: 5, 18: 6,
+        19: 7, 20: 8, 21: 9,
+        22: 10, 23: 11, 0: 12
     }
 
-    if (localHour > 12) {
+    if (parseInt(localHour) > 12 || parseInt(localHour) === 0 ) {
         localHour = conversions[localHour]
     }
         
