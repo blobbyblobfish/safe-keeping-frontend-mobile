@@ -7,7 +7,16 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        
         case "LOGIN":
+            return {
+                token: action.payload.token,
+                id: action.payload.user.id,
+                email: action.payload.user.email,
+                firstName: action.payload.user.first_name
+            }
+        
+        case "PERSIST_LOGIN":
             return {
                 token: action.payload.token,
                 id: action.payload.user.id,

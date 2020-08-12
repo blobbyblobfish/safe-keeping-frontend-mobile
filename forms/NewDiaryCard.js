@@ -26,14 +26,14 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
       <Text style={styles.container}>{fullDate}</Text>
       <Text style={styles.container}>How are you feeling?</Text>
       <TextInput
-        style={{height: 100, width: 500}}
+        style={{height: 100, width: 200}}
         placeholder="Right now, I am feeling..."
         onChangeText={feelings => setFeelings(feelings)}
         defaultValue={feelings}
       />
       <Text style={styles.container}>What's on your mind?</Text>
       <TextInput
-        style={{height: 100, width: 500}}
+        style={{height: 100, width: 200}}
         placeholder="Right now, I am thinking..."
         onChangeText={thoughts => setThoughts(thoughts)}
         defaultValue={thoughts}
@@ -59,7 +59,9 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
 
           fetch(`http://localhost:3000/diary_cards`, configObj)
             .then(resp => resp.json())
-            .then(json => {              
+            .then(json => {         
+              console.log(json)
+
               dispatch({
                 type: "ADD_DIARY_CARD",
                 payload: {

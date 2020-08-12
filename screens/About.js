@@ -14,7 +14,8 @@ export default function About() {
   
   return (
     <View style={styles.container}>
-      <Text>About!</Text>
+      <Text>Safe Keeping is a diary tracker and emotional first aid kit designed to help
+      people learn and practice coping skills and track their daily mental health.</Text>
     </View>
   )
 }

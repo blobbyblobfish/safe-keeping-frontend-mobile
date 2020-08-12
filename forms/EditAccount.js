@@ -28,6 +28,7 @@ function EditAccount({ state, navigation, dispatch }) {
       <TextInput defaultValue={email} onChangeText={email => setEmail(email)} />
 
       <Button title="Submit" onPress={() => {
+        console.log("In submit")
         const updatedUser = {
           id: state.auth.id,
           first_name: name,
@@ -46,6 +47,7 @@ function EditAccount({ state, navigation, dispatch }) {
         fetch(`http:///localhost:3000/users/${state.auth.id}`, configObj)
           .then(resp => resp.json())
           .then(json => {
+            console.log(json)
 
             dispatch({type: "UPDATE_ACCOUNT", payload: json})
             navigation.navigate("Profile")

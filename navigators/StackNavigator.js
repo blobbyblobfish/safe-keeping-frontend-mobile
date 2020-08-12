@@ -40,21 +40,21 @@ const screenOptionStyle = {
   headerBackTitle: "Back"
 }
 
-const SplashScreenStackNavigator = (screenProps) => {
+const SplashScreenStackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Splash Screen" screenOptions={screenOptionStyle}>
       {/* **TO DO** change header style */}
-      <Stack.Screen name="Safe Keeping" component={SplashScreen} initialParams={screenProps} />
-      <Stack.Screen name="Login" component={Login} initialParams={screenProps} />
-      <Stack.Screen name="Create An Account" component={Register} initialParams={screenProps} />
+      <Stack.Screen name="Safe Keeping" component={SplashScreen} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Create An Account" component={Register} />
     </Stack.Navigator>
   )
 }
 
-const MoreStackNavigator = (screenProps) => {
+const MoreStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>  
-        <Stack.Screen name="More" component={More} initialParams={screenProps}/>
+        <Stack.Screen name="More" component={More} />
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="New Emergency Contact" component={NewEmergencyContact} />
         <Stack.Screen name="Edit Emergency Contact" component={EditEmergencyContact} />

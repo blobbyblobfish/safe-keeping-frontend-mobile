@@ -46,6 +46,9 @@ function Register( { dispatch } ) {
                         const trackers = json.user.trackers
 
                         if (json.token) {
+                            const tokenId = `${json.token}${json.user.id}`
+                            SecureStore.setItemAsync("token", tokenId)
+
                             dispatch({
                                 type: "LOGIN",
                                 payload: json
@@ -79,9 +82,9 @@ function Register( { dispatch } ) {
                                 payload: trackers
                             })
                         }
-
-                        SecureStore.setItemAsync("token", json.token)
                     })
+                    .catch(console.log)
+                
             }}/>
         </View>
     )

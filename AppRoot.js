@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { NavigationContainer } from '@react-navigation/native'
@@ -10,20 +10,67 @@ function AppRoot( { state, dispatch } ) {
   
   console.log("IN APP ROOT", state)
 
-  //**TO DO** Check for persisting token
-  // SecureStore.getItemAsync("token")
-  // .then((token) => {
-  //     if (token) {
-  //         dispatch({
-  //             type: "LOGIN",
-  //             payload: token
-  //         })
-  //     }
-  // })
+  //Check for persisting token
+  useEffect(() => {
+    SecureStore.getItemAsync("token")
+    .then((token) => {
+      if (token) {
+        const id = token.slice(84)
+
+        fetch(`http://localhost:3000/users/${id}`)
+          .then(resp => resp.json())
+          .then(json => {
+            console.log(json)
+
+            const copingSkills = json.coping_skills
+            const diaryCards = json.diary_cards
+            const emergencyContacts = json.emergency_contacts
+            const trackers = json.trackers
+
+            dispatch({
+              type: "PERSIST_LOGIN",
+              payload: {
+                 token: token,
+                 user: json
+              }
+            })
+
+            if (copingSkills) {
+              dispatch({
+                type: "SET_COPING_SKILLS",
+                payload: copingSkills
+              })
+            }
+
+            if (diaryCards) {
+              dispatch({
+                type: "SET_DIARY_CARDS",
+                payload: diaryCards
+              })
+            }
+
+            if (emergencyContacts) {
+              dispatch({
+                type: "SET_EMERGENCY_CONTACTS",
+                payload: emergencyContacts
+              })
+            }
+
+            if (trackers) {
+              dispatch({
+                type: "SET_TRACKERS",
+                payload: trackers
+              })
+            }
+            })
+          .catch(console.log)
+      }
+    })
+  }, [])
 
   //Return Tab Navigator if logged in. Otherwise return Splash Screen.
   function renderTabs () {
-    if (!state.auth.token) {
+    if (state.auth.token) {
       return <TabNavigator />
     }
 

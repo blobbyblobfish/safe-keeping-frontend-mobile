@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import DiaryCard from '../components/DiaryCard'
 
-function DiaryCards( { navigation, state } ) {
+function DiaryCards( { navigation, state, dispatch } ) {
 
   const styles = StyleSheet.create({
     container: {
@@ -38,22 +38,24 @@ function DiaryCards( { navigation, state } ) {
   
     //Filter by selected date
     const filteredDiaryCards = state.diary_cards.filter(diary_card => {
-      const createdYear = diary_card.created_at.slice(0, 4)
-      const createdMonth = diary_card.created_at.slice(5, 7)
-      let createdDay = diary_card.created_at.slice(8, 10)
-      const createdHour = diary_card.created_at.slice(11, 13)
-
-      if (parseInt(createdHour) - 4 < 0) {
-        createdDay = parseInt(createdDay) - 1
-      
-        if (createdDay < 10) {
-          createdDay = `0${createdDay}`
+      if (diary_card) {
+        const createdYear = diary_card.created_at.slice(0, 4)
+        const createdMonth = diary_card.created_at.slice(5, 7)
+        let createdDay = diary_card.created_at.slice(8, 10)
+        const createdHour = diary_card.created_at.slice(11, 13)
+  
+        if (parseInt(createdHour) - 4 < 0) {
+          createdDay = parseInt(createdDay) - 1
+        
+          if (createdDay < 10) {
+            createdDay = `0${createdDay}`
+          }
         }
-      }
-    
-    const createdDate = `${createdYear}-${createdMonth}-${createdDay}`
-    
-    return createdDate === datestring
+      
+        const createdDate = `${createdYear}-${createdMonth}-${createdDay}`
+        
+        return createdDate === datestring
+        }
     })
     
     //Render Diary Cards
@@ -70,7 +72,11 @@ function DiaryCards( { navigation, state } ) {
     markedDates[datestring] = { selected: true }
 
     //Dates with diary cards
-    const diaryCardDates = state.diary_cards.map(diaryCard => diaryCard.created_at.slice(0, 10))
+    const diaryCardDates = state.diary_cards.map(diaryCard => {
+      if (diaryCard) {
+        diaryCard.created_at.slice(0, 10)
+      }
+    })
     
     diaryCardDates.forEach(date => {
       markedDates[date] = { marked: true }

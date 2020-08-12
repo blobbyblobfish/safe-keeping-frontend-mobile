@@ -43,6 +43,9 @@ function Login({ state, dispatch }) {
                 const trackers = json.user.trackers
 
                 if (json.token) {
+                    const tokenId = `${json.token}${json.user.id}`
+                    SecureStore.setItemAsync("token", tokenId)
+
                     dispatch({
                         type: "LOGIN",
                         payload: json
@@ -76,8 +79,6 @@ function Login({ state, dispatch }) {
                         payload: trackers
                     })
                 }
-
-                // SecureStore.setItemAsync("token", json.token)
             })
             .catch(console.log)
         

@@ -18,7 +18,31 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
     //Controlled inputs
     const [thoughts, setThoughts] = useState(diaryCard.thoughts)
     const [feelings, setFeelings] = useState(diaryCard.feelings)
-    const [moodScore, setMoodScore] = useState(diaryCard.diary_card_trackers[0].score)
+    const [moodScore, setMoodScore] = useState(0)
+    
+    if (!!diaryCard.diary_card_trackers[0]) {
+        setMoodScore(diaryCard.diary_card_trackers[0].score)
+    }
+
+    function renderDiaryCardTracker() {
+        if (!!diaryCard.diary_card_trackers[0]) {
+            return <View>
+                <Text>Mood</Text>
+                <Text>{moodScore}</Text>
+                <Slider 
+                    style={{width: 350, height: 40}}
+                    value={moodScore}
+                    onValueChange={value => setMoodScore(value)}
+                    step={1}
+                    minimumValue={1}
+                    maximumValue={5}
+                    minimumTrackTintColor="#000000"
+                    maximumTrackTintColor="#000000"
+                    />
+                <Text>1 - awful      2 - bad      3 - okay      4 - good      5 - great</Text>
+            </View>
+        }
+    }
     
     return <View style={styles.container}>
         <Text>Edit Diary Card!</Text>
@@ -35,19 +59,7 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
             defaultValue={thoughts}
         />
 
-        <Text>Mood</Text>
-        <Text>{moodScore}</Text>
-        <Slider 
-            style={{width: 350, height: 40}}
-            value={moodScore}
-            onValueChange={value => setMoodScore(value)}
-            step={1}
-            minimumValue={1}
-            maximumValue={5}
-            minimumTrackTintColor="#000000"
-            maximumTrackTintColor="#000000"
-            />
-        <Text>1 - awful      2 - bad      3 - okay      4 - good      5 - great</Text>
+        {renderDiaryCardTracker()}
 
         <Button title="Submit" onPress={() => {
             const updatedDiaryCard = {
