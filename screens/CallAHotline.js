@@ -2,10 +2,19 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View } from 'react-native'
 
-function CallAHotline( { state, navigation } ) {
+function CallAHotline( { state } ) {
+    
+    const resources = []
+
+    function renderResources() {
+        return resources.map(resource => <View>
+            <Text>resource.name</Text>
+        </View>)
+    }
+
     return (
         <View>
-            <Text>Call A Hotline!</Text>
+            {renderResources()}
         </View>
     )
 }

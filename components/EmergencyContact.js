@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, View, Button, Linking } from 'react-native'
 
 export default function EmergencyContact( { navigation, emergencyContact } ) {
 
@@ -11,16 +11,22 @@ export default function EmergencyContact( { navigation, emergencyContact } ) {
             justifyContent: 'center',
         },
     })
-    
+
     return (
         <View style={styles.container}>
         
             <Text>{emergencyContact.name}</Text>
-            <Text>{emergencyContact.phone_number}</Text>
             <Text>{emergencyContact.professional ? "Therapist" : null}</Text>
-        
-            <Button title="Edit" onPress={() => {navigation.navigate("Edit Emergency Contact", {emergencyContact: emergencyContact})}} />
-            
+
+            {/* Style phone number when clickable */}
+            <Text style={navigation ? null : {color: 'blue'}} onPress={() => { navigation ? Linking.openURL(`telprompt:${emergencyContact.phone_number}`) : null }}>{
+                emergencyContact.phone_number}
+            </Text>
+
+            {/* Only show edit button when on settings page */}
+            {navigation ? <Button title="Edit" onPress={() => {navigation.navigate("Edit Emergency Contact", {emergencyContact: emergencyContact})}} /> : null}
+
         </View>
+        
     )
 }
