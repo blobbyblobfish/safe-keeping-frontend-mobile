@@ -19,8 +19,6 @@ export default function DiaryCard({ diaryCard, navigation }) {
     const newDateString = dateObj.toISOString().replace('T', ' ').slice(0, 16)
 
     let localHour = newDateString.slice(11, 13)
-
-    console.log(localHour.split(''))
     
     //Remove prepending zeroes
     if (parseInt(localHour.split('')) === 0) {
