@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { Text, TextInput, View, Button } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
+import styles from '../StyleSheet'
 
 function Register( { dispatch } ) {
     
@@ -11,15 +12,18 @@ function Register( { dispatch } ) {
     const [password, setPassword] = useState('')
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text>First Name</Text>
-            <TextInput  autoCapitalize={'none'} defaultValue={name} onChangeText={(name) => setName(name)}/>
+            <TextInput style={{ height: 60, width: 200, marginBottom: 0 }} autoCapitalize={'none'}
+                placeholder={'Name'} defaultValue={name} onChangeText={(name) => setName(name)} />
 
             <Text>Email</Text>
-            <TextInput  autoCapitalize={'none'} defaultValue={email} onChangeText={(email) => setEmail(email)} />
+            <TextInput style={{ height: 60, width: 200, marginBottom: 10 }} autoCapitalize={'none'}
+                placeholder={'email@email.com'} defaultValue={email} onChangeText={(email) => setEmail(email)} />
 
             <Text>Password</Text>
-            <TextInput  autoCapitalize={'none'} defaultValue={password} onChangeText={(password) => setPassword(password)}/>
+            <TextInput style={{ height: 60, width: 200, marginBottom: 10 }} autoCapitalize={'none'}
+                placeholder={'********'} defaultValue={password} onChangeText={(password) => setPassword(password)} secureTextEntry />
             
             <Button title="Submit" onPress={() => {
                 const newAccount = {

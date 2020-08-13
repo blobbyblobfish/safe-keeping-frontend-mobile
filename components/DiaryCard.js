@@ -1,28 +1,29 @@
 import React from 'react'
-import { Text, View, Button, ScrollView } from 'react-native'
+import { Text, View, Button } from 'react-native'
 import styles from '../StyleSheet'
 
 export default function DiaryCard({ diaryCard, navigation }) {
         
-    //Date conversion
+    //Date from entry timestamp
     const dateObj = new Date(diaryCard.entry_timestamp)
     
-    //Time conversion
-    const minute = dateObj.getMinutes()
+    //Get time from entry timestamp
+    let minute = dateObj.getMinutes()
     const utcHour = dateObj.getHours()
     const offset = dateObj.getTimezoneOffset() / 60
     
     //Convert UTC to local time
     dateObj.setHours(utcHour - offset)
-
-    //Get converted strings
     const newDateString = dateObj.toISOString().replace('T', ' ').slice(0, 16)
-
     let localHour = newDateString.slice(11, 13)
     
-    //Remove prepending zeroes
+    //Format hours and minutes
     if (parseInt(localHour.split('')) === 0) {
         localHour = localHour.slice(1, 2)
+    }
+
+    if (minute < 10) {
+        minute = `0${minute}`
     }
 
     const period = parseInt(localHour) > 11 ? "pm" : "am"

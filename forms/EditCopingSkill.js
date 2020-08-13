@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-import Slider from '@react-native-community/slider'
+import { Text, TextInput, View, Button, Alert } from 'react-native'
+import styles from '../StyleSheet'
 
 function EditCopingSkill( { navigation, route, dispatch } ) {
-    
-    const styles = StyleSheet.create({
-        container: {
-          backgroundColor: '#fff',
-        }
-    })
     
     //Props from Route Params
     const copingSkill = route.params.skill
@@ -18,18 +12,41 @@ function EditCopingSkill( { navigation, route, dispatch } ) {
     const [name, setName] = useState(copingSkill.name)
     const [description, setDescription] = useState(copingSkill.description)
     const [directions, setDirections] = useState(copingSkill.directions)
+
+    //Confirm alert
+    function confirmAlert() {
+        Alert.alert(
+            "Are you sure?",
+            "This action cannot be undone", 
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                    onPress: () => { }
+                },
+                {
+                    text: "Delete",
+                    onPress: () => {
+                        fetch(`http://localhost:3000/coping_skills/${copingSkill.id}`, { method: "DELETE" })
+                            .then(resp => resp.json())
+                            .then(json => dispatch({ type: "REMOVE_COPING_SKILL", payload: json }))
+                            .then(navigation.navigate("Coping Skills"))
+                            .catch(console.log) 
+                    }
+                }
+            ]
+        )
+    }
     
-    return <View style={styles.container}>
-        <Text>Edit Coping Skill</Text>
-
-        <Text>Name</Text>
-        <TextInput defaultValue={name} onChangeText={name => setName(name)} />
+    return <View style={styles.container} >
+        <Text style={{paddingBottom: 10, color: 'gray'}} >Name</Text>
+        <TextInput style={{marginBottom: 30}} defaultValue={name} onChangeText={name => setName(name)} />
         
-        <Text>Description</Text>
-        <TextInput defaultValue={description} onChangeText={description => setDescription(description)}/>
+        <Text style={{paddingBottom: 10, color: 'gray'}} >Description</Text>
+        <TextInput style={styles.multiline} multiline defaultValue={description} onChangeText={description => setDescription(description)}/>
 
-        <Text>Directions</Text>
-        <TextInput defaultValue={directions} onChangeText={directions => setDirections(directions)}/>
+        <Text style={{paddingBottom: 10, color: 'gray'}} >Directions</Text>
+        <TextInput style={styles.multiline} multiline defaultValue={directions} onChangeText={directions => setDirections(directions)}/>
 
         <Button title="Submit" onPress={() => {
             const updatedCopingSkill = {
@@ -57,15 +74,13 @@ function EditCopingSkill( { navigation, route, dispatch } ) {
 
                     navigation.navigate("Coping Skills")
                 })
+                .catch(console.log) 
             
         }} />
         
-        <Button title="Delete" onPress={() => {
-            fetch(`http://localhost:3000/coping_skills/${copingSkill.id}`, { method: "DELETE" })
-                .then(resp => resp.json())
-                .then(json => dispatch({ type: "REMOVE_COPING_SKILL", payload: json }))
-                .then(navigation.navigate("Coping Skills"))
-        }} />
+        <View style={{paddingTop: 80}}>
+        <Button title="Delete" onPress={confirmAlert} />
+        </View>
         
     </View>
 }

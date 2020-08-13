@@ -15,6 +15,16 @@ const styles = StyleSheet.create({
     horizontalContainer: {
         flexGrow: 1,
         width: dimensions.width * 1.5,
+        height: dimensions.height * .3,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'flex-start'
+    },
+    smallHorizontalContainer: {
+        flexGrow: 1,
+        width: dimensions.width * 1.5,
+        height: dimensions.height * .1,
+        marginTop: 200,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'flex-start'
@@ -23,12 +33,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10
     },
+    profileScrollView: {
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        padding: 10,
+        height: dimensions.height
+    },
     p: {
-        paddingBottom: 5
+        marginBottom: 5
     },
     h6: {
         fontWeight: 'bold',
-        paddingBottom: 15
+        marginBottom: 15
+    },
+    multiline: {
+        width: 300,
+        height: 100
     },
     diaryCard: {
         paddingLeft: 10,

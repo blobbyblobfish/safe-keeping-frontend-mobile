@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Text, View, Button } from 'react-native'
+import { Text, View, Button, ScrollView } from 'react-native'
 
 import EmergencyContact from '../components/EmergencyContact'
 import styles from '../StyleSheet'
@@ -14,16 +14,20 @@ function Settings( { state, navigation } ) {
   }
   
   return (
-    <View style={styles.container}>
-      <Text style={styles.h6}>Emergency Contacts</Text>
+    <ScrollView contentContainerStyle={styles.profileScrollView}>
+      <Text style={{fontWeight: 'bold', paddingTop: 30, margin: 15}}>Emergency Contacts</Text>
+
       {renderEmergencyContacts()}
-      <Button title="New Emergency Contact" onPress={() => {navigation.navigate("New Emergency Contact")}}/>
     
+      <View style={{marginTop: 10, marginBottom: 20}}>
+        <Button title="New Emergency Contact" onPress={() => {navigation.navigate("New Emergency Contact")}}/>
+      </View>
+
       {/* Move Trackers here */}
       {/* <Text style={styles.h6}>Trackers</Text>
       <Button title="Add New Tracker" onPress={() => navigation.navigate("New Tracker")} /> */}
       
-    </View>
+    </ScrollView>
   )
 }
 

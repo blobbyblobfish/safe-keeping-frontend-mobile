@@ -73,8 +73,6 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
     period = 'pm'
   }
 
-  console.log(hour)
-
   //Military time conversion
   const conversions = {
     13: 1, 14: 2, 15: 3, 16: 4,
@@ -118,7 +116,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
       
       <Text style={{paddingBottom: 10}}>How are you feeling?</Text>
       <TextInput
-        style={{ height: 100, width: 300 }}
+        style={styles.multiline}
         multiline={true}
         placeholder="Right now, I am feeling..."
         onChangeText={feelings => setFeelings(feelings)}
@@ -127,7 +125,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
 
       <Text style={{paddingBottom: 10}}>What's on your mind?</Text>
       <TextInput
-        style={{ height: 100, width: 300 }}
+        style={styles.multiline}
         multiline={true}
         placeholder="Right now, I am thinking..."
         onChangeText={thoughts => setThoughts(thoughts)}
@@ -170,6 +168,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
 
               navigation.navigate("New Diary Card ", { selectedDateString: selectedDateString, selectedTimeString: selectedTimeString, diaryCardId: json.id })
             })
+            .catch(console.log)
         }}
       />
     </View>

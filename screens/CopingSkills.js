@@ -7,13 +7,8 @@ import styles from '../StyleSheet'
 
 function CopingSkills( { navigation, state } ) {
 
+  //Get coping skills and set first as default selected skill
   const copingSkills = state.coping_skills
-
-  // **TO DO** have image library to select from
-  const imgKey = "waves"
-  const imgGallery = {
-      waves: "https://images.unsplash.com/photo-1581701545134-c627459217a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-  }
 
   let initialState = 0
 
@@ -21,25 +16,37 @@ function CopingSkills( { navigation, state } ) {
     initialState = copingSkills[0].id
   }
 
-  //Select skill
+  // **TO DO** have image library to select from
+  const imgKey = "waves"
+  const imgGallery = {
+      waves: "https://images.unsplash.com/photo-1581701545134-c627459217a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  }
+
+  //Controlled inputs
   const [selectedSkill, setSelectedSkill] = useState(initialState)
-
+  
+  //Render carousel
   function renderCarousel() {
+    
+    //Sort  coping skills by ID
+    return copingSkills.sort((a, b) => a.id > b.id ? 1 : -1).map(skill => {
+      let opacity = .65
 
-    //Sort by ID
-    return copingSkills.sort((a, b) => a.id > b.id ? 1 : -1).map(skill =>
+      if (skill.id === selectedSkill) {
+        opacity = 1
+      }
       
-      <View style={{ flex: 1, alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => setSelectedSkill(skill.id)}>
+      return (
+        <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={() => {setSelectedSkill(skill.id)}}>
           <Image 
-            style={{width: 100, height: 100, borderRadius: 20}}
+            style={{width: 100, height: 100, borderRadius: 20, opacity: opacity}}
             source={{
-            uri: imgGallery[imgKey],
-          }}
-          />
+            uri: imgGallery[imgKey]
+          }}/>
+          <Button key={skill.id} title={skill.name} onPress={() => setSelectedSkill(skill.id)} />
         </TouchableOpacity>
-        <Button key={skill.id} title={skill.name} onPress={() => setSelectedSkill(skill.id)} />
-      </View>
+      )
+    }
     )
   }
 
@@ -53,19 +60,22 @@ function CopingSkills( { navigation, state } ) {
   }
   
   return (
-    <View style={styles.container}>     
-      <ScrollView horizontal contentContainerStyle={styles.horizontalContainer}>
+    <View style={styles.container}>   
+
+      {/* Coping Skill selection carousel */}
+      <ScrollView horizontal indicatorStyle='white' contentContainerStyle={styles.horizontalContainer}>
         {renderCarousel()}
       </ScrollView>
 
-      <View style={{paddingBottom: 40}}>
+      <View style={{paddingBottom: 20}}>
       <Button 
         title="New Coping Skill"
         onPress={() => navigation.navigate("New Coping Skill")}
       />
       </View>
 
-      <ScrollView contentContainerStyle={{ width: 325}}>
+      {/* Render selected coping skill */}
+      <ScrollView contentContainerStyle={{ width: 325, height: 250}}>
         {renderCopingSkill()}
       </ScrollView>
     </View>

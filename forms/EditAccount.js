@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Text, TextInput, View, Button } from 'react-native'
+import { Text, TextInput, View, Button, Alert } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import styles from '../StyleSheet'
 
@@ -9,15 +9,44 @@ function EditAccount({ state, navigation, dispatch }) {
   //Controlled inputs
   const [name, setName] = useState(state.auth.firstName)
   const [email, setEmail] = useState(state.auth.email)
-    
+  
+  //Confirm alert
+  function confirmAlert() {
+    Alert.alert(
+        "Are you sure?",
+        "This action cannot be undone", 
+      [
+            {
+                text: "Cancel",
+                style: "cancel",
+                onPress: () => { }
+            },
+            {
+                text: "Delete",
+                onPress: () => {
+                  fetch(`http://localhost:3000/users/${state.auth.id}`, { method: "DELETE" })
+                    .then(resp => resp.json())
+                    .then(json => {
+                      
+                      SecureStore.deleteItemAsync("token")
+                      dispatch({ type: "LOGOUT", payload: { token: '' } })
+                    })
+                    .catch(console.log)
+                  
+                }
+            }
+        ]
+    )
+  }
+  
   return (
     <View style={styles.container}>
       
-      <Text>Name</Text>
-      <TextInput autoCapitalize={'none'} defaultValue={name} onChangeText={name => setName(name)} />
+      <Text style={{color: 'gray', marginBottom: 10}} >Name</Text>
+      <TextInput style={{marginBottom: 20}} autoCapitalize={'none'} defaultValue={name} onChangeText={name => setName(name)} />
 
-      <Text>Email</Text>
-      <TextInput  autoCapitalize={'none'} defaultValue={email} onChangeText={email => setEmail(email)} />
+      <Text style={{color: 'gray', marginBottom: 10}} >Email</Text>
+      <TextInput style={{marginBottom: 30}} autoCapitalize={'none'} defaultValue={email} onChangeText={email => setEmail(email)} />
 
       <Button title="Submit" onPress={() => {
         console.log("In submit")
@@ -49,17 +78,9 @@ function EditAccount({ state, navigation, dispatch }) {
         
       }} />
 
-      <Button title="Delete" onPress={() => {
-        fetch(`http://localhost:3000/users/${state.auth.id}`, { method: "DELETE" })
-          .then(resp => resp.json())
-          .then(json => {
-            
-            SecureStore.deleteItemAsync("token")
-            dispatch({ type: "LOGOUT", payload: { token: '' } })
-          })
-          .catch(console.log)
-        
-      }}/>
+      <View style={{paddingTop: 80}}>
+      <Button title="Delete" onPress={confirmAlert}/>
+      </View>
       
     </View>
   )

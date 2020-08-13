@@ -4,7 +4,7 @@ import { Text, TextInput, View, Button } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import styles from '../StyleSheet'
 
-function Login({ state, dispatch }) {
+function Login({ dispatch }) {
     
     //Controlled inputs
     const [email, setEmail] = useState('')
@@ -13,11 +13,13 @@ function Login({ state, dispatch }) {
     return (
     <View style={styles.container}>
 
-    <Text>Email</Text>
-    <TextInput autoCapitalize={'none'} defaultValue={email} onChangeText={(email) => setEmail(email)} />
+    <Text style={{paddingBottom: 10}}>Email</Text>
+    <TextInput autoCapitalize={'none'} placeholder={'email@email.com'} style={{height: 40, width: 200, paddingBottom: 20}}
+        defaultValue={email} onChangeText={(email) => setEmail(email)} />
     
-    <Text>Password</Text>
-    <TextInput autoCapitalize={'none'} defaultValue={password} onChangeText={(password) => setPassword(password)}/>
+    <Text style={{paddingBottom: 10}}>Password</Text>
+    <TextInput secureTextEntry autoCapitalize={'none'} placeholder={'********'}style={{width: 200, height: 40}}
+        defaultValue={password} onChangeText={(password) => setPassword(password)} />
     
     <Button title="Submit" onPress={() => {
         const credentials = {

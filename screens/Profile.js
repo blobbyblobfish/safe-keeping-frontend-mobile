@@ -7,10 +7,10 @@ function Profile({ state, navigation }) {
   
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.h6}>Account</Text>
-      <Text>{state.auth.firstName}</Text>
+      <Text style={{color: 'gray', marginBottom: 10}}>Account</Text>
+      <Text style={styles.p} >{state.auth.firstName}</Text>
       <Text>{state.auth.email}</Text>
-      <View style={{paddingBottom: 20}}>
+      <View style={{marginTop: 20, marginBottom: 20}}>
         <Button
             title="Edit Account"
             onPress={() => navigation.navigate("Edit Account")}

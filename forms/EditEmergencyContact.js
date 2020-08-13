@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TextInput, View, Button, CheckBox, Switch, Platform } from 'react-native'
+import { Text, TextInput, View, Button, CheckBox, Switch, Platform, Alert } from 'react-native'
+import styles from '../StyleSheet'
 
 function EditEmergencyContact({ route, state, dispatch, navigation }) {
     
@@ -27,18 +28,45 @@ function EditEmergencyContact({ route, state, dispatch, navigation }) {
         }
     }
 
+    //Confirm alert
+    function confirmAlert() {
+        Alert.alert(
+            "Are you sure?",
+            "This action cannot be undone", 
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                    onPress: () => { }
+                },
+                {
+                    text: "Delete",
+                    onPress: () => {
+                        fetch(`http://localhost:3000/emergency_contacts/${id}`, { method: "DELETE" })
+                            .then(resp => resp.json())
+                            .then(json => {
+                                dispatch({ type: "REMOVE_EMERGENCY_CONTACT", payload: { id: json.id } })
+        
+                                navigation.navigate("Settings")
+                            })
+                            .catch(console.log)
+                        
+                    }
+                }
+            ]
+        )
+    }
+
     return (
-        <View>
-            <Text>Edit Emergency Contact</Text>
-
-            <Text>Name</Text>
-            <TextInput value={newName} onChangeText={value => setNewName(value)} />
+        <View style={styles.container}>
+            <Text style={{paddingBottom: 10, color: 'gray'}} >Name</Text>
+            <TextInput style={{marginBottom: 20}} value={newName} onChangeText={value => setNewName(value)} />
             
-            <Text>Phone Number</Text>
-            <TextInput value={newPhoneNumber} onChangeText={value => setNewPhoneNumber(value)} keyboardType={'phone-pad'} />
+            <Text style={{paddingBottom: 10, color: 'gray'}} >Phone Number</Text>
+            <TextInput style={{marginBottom: 30}} value={newPhoneNumber} onChangeText={value => setNewPhoneNumber(value)} keyboardType={'phone-pad'} />
 
-            <Text>Therapist?</Text>
-            {renderToggle()}
+            <Text style={{paddingBottom: 10, color: 'gray'}} >Therapist?</Text>
+            <View style={{marginBottom: 40}}>{renderToggle()}</View>
 
             <Button title="Submit" onPress={() => {
                 const updatedEmergencyContact = {
@@ -74,19 +102,13 @@ function EditEmergencyContact({ route, state, dispatch, navigation }) {
 
                         navigation.navigate("Settings")
                     })
+                    .catch(console.log)
 
             }} />
 
-            <Button title="Delete" onPress={() => {
-                fetch(`http://localhost:3000/emergency_contacts/${id}`, { method: "DELETE" })
-                    .then(resp => resp.json())
-                    .then(json => {
-                        dispatch({ type: "REMOVE_EMERGENCY_CONTACT", payload: { id: json.id } })
-
-                        navigation.navigate("Settings")
-                    })
-                
-            }} />
+            <View style={{paddingTop: 50}}>
+            <Button title="Delete" onPress={confirmAlert} />
+            </View>
         </View>
     )
 }

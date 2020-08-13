@@ -15,12 +15,14 @@ export default function EmergencyContact( { navigation, emergencyContact } ) {
     return (
         <View style={styles.container, {alignItems: 'center', padding: 20}}>
         
-            <Text>{emergencyContact.name}</Text>
-                {navigation ? <Text>{emergencyContact.professional ? "Therapist" : null}</Text>
-                : <Text style={{ color: 'white' }}>Hidden</Text>} 
+            <Text style={{ marginBottom: 10 }}>{emergencyContact.name}</Text>
+            {/* Only show conditional therapist label when on settings page */}
+            {navigation ? emergencyContact.professional ? <Text style={{ marginBottom: 5 }}>Therapist</Text> 
+                : null
+                : null} 
 
             {/* Style phone number when clickable */}
-            <Text style={navigation ? null : {color: '#1384fc'}} onPress={() => { navigation ? Linking.openURL(`telprompt:${emergencyContact.phone_number}`) : null }}>{
+            <Text style={navigation ? {marginBottom: 10} : {marginBottom: 10, color: '#1384fc'}} onPress={() => { navigation ? Linking.openURL(`telprompt:${emergencyContact.phone_number}`) : null }}>{
                 emergencyContact.phone_number}
             </Text>
 

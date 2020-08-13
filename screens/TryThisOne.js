@@ -11,8 +11,9 @@ function TryThisOne({ route, state, navigation, dispatch }) {
     return (
         <View style={styles.container}>
             
-            <Text>{copingSkill.name}</Text>
-            <Text>Was That Helpful?</Text>
+            <Text style={styles.h6}>{copingSkill.name}</Text>
+            <Text style={{margin: 30}}>{copingSkill.directions}</Text>
+            <Text style={{marginTop: 20, marginBottom: 5}}>Was That Helpful?</Text>
 
             {/* Record  attempts */}
             <Button title={"Yes"} onPress={() => {
@@ -38,8 +39,9 @@ function TryThisOne({ route, state, navigation, dispatch }) {
                             payload: json
                         })
 
-                        navigation.navigate("Coping Skills")
+                        navigation.navigate("What's Up Next?")
                     })
+                    .catch(console.log)
             }} />
 
             <Button title={"No"} onPress={() => {
@@ -67,6 +69,7 @@ function TryThisOne({ route, state, navigation, dispatch }) {
 
                         navigation.navigate("What's Up Next?")
                     })
+                    .catch(console.log)
             }} />
         </View>
     )

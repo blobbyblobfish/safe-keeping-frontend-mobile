@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { NavigationContainer } from '@react-navigation/native'
-import { SplashScreenStackNavigator } from './navigators/StackNavigator'
+import { LandingPageStackNavigator } from './navigators/StackNavigator'
 import TabNavigator from './navigators/TabNavigator'
 import * as SecureStore from 'expo-secure-store'
 
@@ -20,6 +20,7 @@ function AppRoot( { state, dispatch } ) {
     //     console.log(json)
     //     dispatch({type: "LOGIN", payload: {token: "abc", user: json}})
     //   })
+    //   .catch(console.log) 
     
     SecureStore.getItemAsync("token")
     .then((token) => {
@@ -83,7 +84,7 @@ function AppRoot( { state, dispatch } ) {
     }
 
     else {
-      return <SplashScreenStackNavigator />
+      return <LandingPageStackNavigator />
     }
   }
 

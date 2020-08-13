@@ -93,7 +93,7 @@ function DiaryCards({ navigation, state, }) {
         markedDates={markedDates()}
       />
 
-      <View style={{padding: 10}}>
+      <View style={{marginTop: 5, marginBottom: 20}}>
         <Button title="New Diary Card"
           onPress={() => navigation.navigate("New Diary Card", {datestring: datestring})}
         />

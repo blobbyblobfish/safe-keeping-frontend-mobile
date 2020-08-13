@@ -1,7 +1,7 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 
-import SplashScreen from "../screens/SplashScreen"
+import LandingPage from "../screens/LandingPage"
 import Profile from "../screens/Profile"
 import About from "../screens/About"
 import More from "../screens/More"
@@ -40,11 +40,10 @@ const screenOptionStyle = {
   headerBackTitle: "Back"
 }
 
-const SplashScreenStackNavigator = () => {
+const LandingPageStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Splash Screen" screenOptions={screenOptionStyle}>
-      {/* **TO DO** change header style */}
-      <Stack.Screen name="Safe Keeping" component={SplashScreen} />
+    <Stack.Navigator initialRouteName="Safe Keeping" screenOptions={screenOptionStyle} >
+      <Stack.Screen name="Safe Keeping" component={LandingPage} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Create An Account" component={Register} />
     </Stack.Navigator>
@@ -111,6 +110,6 @@ const HelpButtonStackNavigator = () => {
 }
 
 export {
-  SplashScreenStackNavigator, ProfileStackNavigator, MoreStackNavigator,
+  LandingPageStackNavigator, ProfileStackNavigator, MoreStackNavigator,
   DiaryCardStackNavigator, CopingSkillsStackNavigator, HelpButtonStackNavigator
 }

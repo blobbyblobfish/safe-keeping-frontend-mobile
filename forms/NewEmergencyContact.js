@@ -1,19 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TextInput, View, Button, CheckBox, Switch, Platform } from 'react-native'
+import { Text, TextInput, View, Button, CheckBox, Switch, Platform } from 'react-native'
+import styles from '../StyleSheet'
 
-function NewEmergencyContact({ route, navigation, state, dispatch }) {
+function NewEmergencyContact({ navigation, state, dispatch }) {
 
-    const styles = StyleSheet.create({
-        container: {
-        // flex: 1,
-        // flexDirection: 'column',
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        }
-    })
-  
     //Controlled inputs
     const [name, setName] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -37,26 +28,26 @@ function NewEmergencyContact({ route, navigation, state, dispatch }) {
     return (
         <View style={styles.container}>
             
-        <Text style={styles.container}>Name</Text>
+        <Text>Name</Text>
         <TextInput
-            // style={{height: 100, width: 500}}
+            style={{height: 40, width: 200, marginBottom: 20}}
             placeholder="Name"
             onChangeText={name => setName(name)}
             defaultValue={name}
             />
             
-        <Text style={styles.container}>Phone Number</Text>
+        <Text>Phone Number</Text>
         <TextInput
-            // style={{height: 100, width: 500}}
-            placeholder="Phone Number"
+            style={{height: 40, width: 200, marginBottom: 20}}
+            placeholder="1-234-567-8900"
             keyboardType={'phone-pad'}
             onChangeText={phoneNumber => setPhoneNumber(phoneNumber)}
             defaultValue={phoneNumber}
         />
         
         {/* Is Therapist */}
-        <Text style={styles.container}>Therapist?</Text>
-        {renderToggle()}
+        <Text style={styles.p}>Therapist?</Text>
+        <View style={{marginBottom: 40}}>{renderToggle()}</View>
         
         <Button 
             title="Submit"
@@ -96,7 +87,8 @@ function NewEmergencyContact({ route, navigation, state, dispatch }) {
                     })
 
                     navigation.goBack()
-                })       
+                })
+                .catch(console.log)
             }}
         />
             

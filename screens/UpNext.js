@@ -28,7 +28,7 @@ function UpNext({ state, dispatch, navigation }) {
                 //     { cancelable: false }
                 // )
                     
-                navigation.navigate("Profile")
+                navigation.navigate("Help Button")
             }} />
         </View>
     )

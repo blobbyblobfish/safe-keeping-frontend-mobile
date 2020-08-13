@@ -20,13 +20,13 @@ function NewCopingSkill( { navigation, state, dispatch } ) {
         onChangeText={name => setName(name)}
         defaultValue={name}
         multiline
-        placeholder="Skill"
+        placeholder="Skill name"
         style={{height: 100}}
       />
 
       <Text>Description</Text>
       <TextInput 
-        style={{height: 100, width: 300}}
+        style={styles.multiline}
         placeholder="What this skill is about."
         multiline
         onChangeText={description => setDescription(description)}
@@ -35,7 +35,7 @@ function NewCopingSkill( { navigation, state, dispatch } ) {
 
       <Text>Directions</Text>
       <TextInput
-        style={{ height: 100, width: 300 }}
+        style={styles.multiline}
         multiline
         placeholder="Step 1..."
         onChangeText={directions => setDirections(directions)}
@@ -70,6 +70,7 @@ function NewCopingSkill( { navigation, state, dispatch } ) {
             })
             navigation.navigate("Coping Skills")
           })
+          .catch(console.log)
       }}/>
 
     </View>

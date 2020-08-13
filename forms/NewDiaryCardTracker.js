@@ -1,18 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import Slider from '@react-native-community/slider'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { Text, View, Button } from 'react-native'
+import styles from '../StyleSheet'
 
 function NewDiaryCardTrackers ( {route, navigation, state, dispatch } ) {
-    const styles = StyleSheet.create({
-        container: {
-        // flex: 1,
-        // flexDirection: 'column',
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        },
-    })
     
     //Controlled inputs
     const [moodScore, setMoodScore] = useState(3)
@@ -28,9 +20,9 @@ function NewDiaryCardTrackers ( {route, navigation, state, dispatch } ) {
     return (
         <View style={styles.container}>
             
-        <Text style={{paddingTop:20, paddingBottom:20}}>{`${date}       ${time}`}</Text>    
-        <Text style={{paddingBottom: 10}}>Rate your Mood</Text>
-        <Text>{moodScore}</Text>
+        <Text style={{marginBottom: 40}}>{`${date}       ${time}`}</Text>    
+        <Text style={{marginBottom: 10}}>Rate your Mood</Text>
+        <Text style={{marginBottom: 40}}>{moodScore}</Text>
         <Slider 
             style={{width: 350, height: 40}}
             value={moodScore}
@@ -41,7 +33,7 @@ function NewDiaryCardTrackers ( {route, navigation, state, dispatch } ) {
             minimumTrackTintColor="#000000"
             maximumTrackTintColor="#000000"
             />
-        <Text>1 - awful      2 - bad      3 - okay      4 - good      5 - great</Text>
+        <Text style={{paddingBottom: 80}}>1 - awful      2 - bad      3 - okay      4 - good      5 - great</Text>
             
         <Button 
             title="Submit"
@@ -73,6 +65,7 @@ function NewDiaryCardTrackers ( {route, navigation, state, dispatch } ) {
                         }
                     })
                 })
+                .catch(console.log)
             
             navigation.navigate("Diary Cards")
             }}

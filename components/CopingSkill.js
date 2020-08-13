@@ -6,10 +6,10 @@ export default function CopingSkill( { skill, navigation } ) {
 
     return (
     <View>
-        <Text style={styles.h6}>{skill.name} </Text>
-        {skill.attempts > 0 ? <Text style={styles.p}>This skill has been helpful {skill.successful_attempts} of {skill.attempts} times.</Text> : null}
-        <Text style={{paddingBottom: 8}}>{skill.description} </Text>
-        <Text style={styles.p}>{skill.directions} </Text>
+        <Text style={{fontWeight: 'bold', paddingBottom: 20}}>{skill.name} </Text>
+        <Text style={{marginBottom: 20}}>{skill.description} </Text>
+        <Text style={{marginBottom: 20}}>{skill.directions} </Text>
+        {skill.attempts > 0 ? <Text style={{marginBottom: 20}}>This skill has been helpful {skill.successful_attempts} of {skill.attempts} times.</Text> : null}
         <Button title="Edit" onPress={() => {navigation.navigate("Edit Coping Skill", {skill: skill}) }}/>    
     </View>)
 }

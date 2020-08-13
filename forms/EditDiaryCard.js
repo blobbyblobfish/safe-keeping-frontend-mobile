@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { Text, TextInput, View, Button, Alert } from 'react-native'
 import Slider from '@react-native-community/slider'
+import styles from '../StyleSheet'
 
-function EditDiaryCard( { navigation, route, state, dispatch } ) {
-    
-    const styles = StyleSheet.create({
-        container: {
-          backgroundColor: '#fff',
-        }
-    })
+function EditDiaryCard( { navigation, route, dispatch } ) {
     
     //Props from Route Params
     const diaryCard = route.params.diaryCard
@@ -26,10 +21,35 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
         }
     }, [])
 
-    function renderDiaryCardTracker() {
+    //Confirm alert (handles delete on confirm)
+    function confirmAlert() {
+        Alert.alert(
+            "Are you sure?",
+            "This action cannot be undone.",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                    onPress: () => { }
+                },
+                {
+                    text: "Delete",
+                    onPress: () => {
+                        fetch(`http://localhost:3000/diary_cards/${diaryCard.id}`, { method: "DELETE" })
+                            .then(resp => resp.json())
+                            .then(json => dispatch({ type: "REMOVE_DIARY_CARD", payload: json }))
+                            .then(navigation.navigate("Diary Cards"))
+                            .catch(console.log)
+                    }
+                }
+            ]
+          )
+    }
 
+    //Includes tracker
+    function renderDiaryCardTracker() {
         if (!!moodTracker) {
-            return <View>
+            return <View style={styles.container}>
                 <Text>Mood</Text>
                  <Text>{moodScore}</Text>
                  <Slider 
@@ -42,32 +62,28 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
                     minimumTrackTintColor="#000000"
                     maximumTrackTintColor="#000000"
                     />
-                <Text>1 - awful      2 - bad      3 - okay      4 - good      5 - great</Text>
+                <Text style={{marginBottom: 75}}>1 - awful      2 - bad      3 - okay      4 - good      5 - great</Text>
             </View>
         }
     }
     
     return <View style={styles.container}>
-        <Text>Edit Diary Card!</Text>
-
-        <Text>Feelings</Text>
+        <Text style={{paddingTop: 40, paddingBottom: 10, color: 'gray'}}>Feelings</Text>
         <TextInput
-            onChangeText={feelings => setFeelings(feelings)}
-            defaultValue={feelings}
+            multiline onChangeText={feelings => setFeelings(feelings)}
+            defaultValue={feelings} style={{height: 80, width: 300}}
         />
 
-        <Text>Thoughts</Text>
+        <Text style={{color: 'gray', paddingBottom: 10}} >Thoughts</Text>
         <TextInput
-            onChangeText={thoughts => setThoughts(thoughts)}
-            defaultValue={thoughts}
+            multiline onChangeText={thoughts => setThoughts(thoughts)}
+            defaultValue={thoughts} style={{height: 80, width: 300}}
         />
 
         {renderDiaryCardTracker()}
 
         <Button title="Submit" onPress={() => {
 
-            //Handle tracker update in Diary Card controller
-            
             let updatedDiaryCard = {
                 id: diaryCard.id,
                 thoughts: thoughts,
@@ -75,6 +91,7 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
                 score: moodScore
             }
 
+            //Handles tracker update in Diary Card controller
             if (moodTracker) {
                 updatedDiaryCard = {
                     ...updatedDiaryCard,
@@ -82,8 +99,6 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
                     score: moodScore
                 }
             }
-
-            console.log(updatedDiaryCard)
             
             const diaryCardConfigObj = {
                 method: "PATCH",
@@ -109,16 +124,14 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
                         })
 
                         navigation.navigate("Diary Cards")
-                })
-            
+                    })
+                    .catch(console.log)
+
         }} />
         
-        <Button title="Delete" onPress={() => {
-            fetch(`http://localhost:3000/diary_cards/${diaryCard.id}`, { method: "DELETE" })
-                .then(resp => resp.json())
-                .then(json => dispatch({ type: "REMOVE_DIARY_CARD", payload: json }))
-                .then(navigation.navigate("Diary Cards"))
-        }} />
+        <View style={{paddingTop: 30, paddingBottom: 30}}>
+            <Button title="Delete" onPress={confirmAlert} />
+        </View>
         
     </View>
 }

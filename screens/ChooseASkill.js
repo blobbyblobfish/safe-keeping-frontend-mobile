@@ -12,32 +12,36 @@ function ChooseASkill({ state, navigation }) {
     }
     
     function renderCarousel() {
-        return (
-            state.coping_skills.map(skill =>
-                <View style={{ flex: 1, alignItems: 'center', padding: 10}}>
-                  <TouchableOpacity onPress={() => setSelectedSkill(skill.id)}>
+        return state.coping_skills.sort((a, b) => a.id > b.id ? 1 : -1).map(skill => {
+            let opacity = .65
+
+            if (skill.id === selectedSkill) {
+                opacity = 1
+            }
+        
+            return (
+                <TouchableOpacity style={{ flex: 1, alignItems: 'center', padding: 10}} onPress={() => setSelectedSkill(skill.id)}>
                     <Image 
-                      style={{width: 100, height: 100, borderRadius: 20}}
-                      source={{
-                      uri: imgGallery[imgKey],
-                    }}
-                    />
-                  </TouchableOpacity>
-                  <Button key={skill.id} title={skill.name} onPress={() => setSelectedSkill(skill.id)} />
-                </View>
+                        style={{width: 100, height: 100, borderRadius: 20, opacity: opacity}}
+                        source={{
+                        uri: imgGallery[imgKey]
+                    }}/>
+                    <Button key={skill.id} title={skill.name} onPress={() => setSelectedSkill(skill.id)} />
+                </TouchableOpacity>
             )
+            }
         )
     }
 
     return (
         <View style={styles.container}>
-            <ScrollView horizontal contentContainerStyle={styles.horizontalContainer}>
+            <ScrollView horizontal indicatorStyle='white' contentContainerStyle={styles.smallHorizontalContainer}>
                 {renderCarousel()}
             </ScrollView>
 
             {/* Hidden text to maintain formatting */}
-            {selectedSkill > 0 ?  <Button title="Try This One" onPress={() => navigation.navigate("Try This One", {selectedSkill: selectedSkill})} /> : <Text style={{padding: 6, color: 'white'}}>Hidden</Text> }
-            {selectedSkill > 0 ? <Text style={styles.p}>{state.coping_skills.filter(skill => {return skill.id === selectedSkill})[0].name}</Text> : <Text style={{padding: 6, color: 'white'}}>Hidden</Text> }
+            {selectedSkill > 0 ?  <Button title="Try This One" onPress={() => navigation.navigate("Try This One", {selectedSkill: selectedSkill})} /> : null }
+            {selectedSkill > 0 ? <Text style={{marginBottom: 100}}>{state.coping_skills.filter(skill => {return skill.id === selectedSkill})[0].name}</Text> : null }
             
         </View>
     )
