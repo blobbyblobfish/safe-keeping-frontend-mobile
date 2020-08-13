@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View, Button, ScrollView } from 'react-native'
 import styles from '../StyleSheet'
 
 export default function DiaryCard({ diaryCard, navigation }) {
@@ -53,7 +53,7 @@ export default function DiaryCard({ diaryCard, navigation }) {
         <View key={diaryCard.id}>
             
             <View style={styles.p} >
-                <Text>{`${localHour}:${minute} ${period}`}                                                                {renderDiaryCardTrackers()}</Text>
+                <Text>{`${localHour}:${minute} ${period}`}                                                           {renderDiaryCardTrackers()}</Text>
             </View>
 
             <View style={styles.p} >
@@ -64,7 +64,7 @@ export default function DiaryCard({ diaryCard, navigation }) {
                 {diaryCard.thoughts === '' ? null : <Text>{diaryCard.thoughts}</Text>}
             </View>
             
-            <View style={{ alignItems: 'flex-end', paddingBottom: 20 }} >
+            <View style={{ alignItems: 'flex-end', paddingBottom: 40 }} >
                 <Button title="Edit" onPress={() => navigation.navigate("Edit Diary Card", { diaryCard: diaryCard })} />
             </View>
         </View>

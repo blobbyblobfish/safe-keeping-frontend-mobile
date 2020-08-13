@@ -13,13 +13,13 @@ function Register( { dispatch } ) {
     return (
         <View>
             <Text>First Name</Text>
-            <TextInput defaultValue={name} onChangeText={(name) => setName(name)}/>
+            <TextInput  autoCapitalize={'none'} defaultValue={name} onChangeText={(name) => setName(name)}/>
 
             <Text>Email</Text>
-            <TextInput defaultValue={email} onChangeText={(email) => setEmail(email)} />
+            <TextInput  autoCapitalize={'none'} defaultValue={email} onChangeText={(email) => setEmail(email)} />
 
             <Text>Password</Text>
-            <TextInput defaultValue={password} onChangeText={(password) => setPassword(password)}/>
+            <TextInput  autoCapitalize={'none'} defaultValue={password} onChangeText={(password) => setPassword(password)}/>
             
             <Button title="Submit" onPress={() => {
                 const newAccount = {

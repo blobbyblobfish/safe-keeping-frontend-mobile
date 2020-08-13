@@ -1,18 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { Text, TextInput, View, Button } from 'react-native'
+import styles from '../StyleSheet'
 
 function NewCopingSkill( { navigation, state, dispatch } ) {
   
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  })
-
   //Controlled inputs
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -20,25 +12,31 @@ function NewCopingSkill( { navigation, state, dispatch } ) {
   
   return (
     <View style={styles.container}>
-      <Text>New Coping Skill</Text>
+      
+      {/* Add select an image */}
 
-      <Text>Name</Text>
+      <Text >Name</Text>
       <TextInput 
         onChangeText={name => setName(name)}
         defaultValue={name}
+        multiline
+        placeholder="Skill"
+        style={{height: 100}}
       />
 
       <Text>Description</Text>
       <TextInput 
-        style={{height: 100, width: 500}}
+        style={{height: 100, width: 300}}
         placeholder="What this skill is about."
+        multiline
         onChangeText={description => setDescription(description)}
         defaultValue={description}
       />
 
       <Text>Directions</Text>
       <TextInput
-        style={{height: 100, width: 500}}
+        style={{ height: 100, width: 300 }}
+        multiline
         placeholder="Step 1..."
         onChangeText={directions => setDirections(directions)}
         defaultValue={directions}

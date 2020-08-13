@@ -1,8 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
 const dimensions = {
-    fullHeight: Dimensions.get('window').height,
-    fullWidth: Dimensions.get('window').width
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
 }
 
 const styles = StyleSheet.create({
@@ -12,8 +12,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    horizontalContainer: {
+        flexGrow: 1,
+        width: dimensions.width * 1.5,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'flex-start'
+    },
     scrollView: {
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        padding: 10
     },
     p: {
         paddingBottom: 5

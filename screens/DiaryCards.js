@@ -100,7 +100,7 @@ function DiaryCards({ navigation, state, }) {
       </View>
 
       <View style={styles.diaryCard}>
-        <Text style={styles.h6}>{fullDate}</Text>
+        <Text style={{fontWeight: 'bold', paddingBottom: 15}}>{fullDate}</Text>
         {renderDiaryCards()}
       </View>
 

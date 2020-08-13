@@ -21,14 +21,14 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
     const [moodScore, setMoodScore] = useState(0)
 
     useEffect(() => {
-        if (!!diaryCard.diary_card_trackers[0]) {
-            setMoodScore(diaryCard.diary_card_trackers[0].score)
+        if (!!moodTracker) {
+            setMoodScore(moodTracker.score)
         }
     }, [])
 
     function renderDiaryCardTracker() {
 
-        if (!!diaryCard.diary_card_trackers[0]) {
+        if (!!moodTracker) {
             return <View>
                 <Text>Mood</Text>
                  <Text>{moodScore}</Text>
@@ -67,13 +67,23 @@ function EditDiaryCard( { navigation, route, state, dispatch } ) {
         <Button title="Submit" onPress={() => {
 
             //Handle tracker update in Diary Card controller
-            const updatedDiaryCard = {
+            
+            let updatedDiaryCard = {
                 id: diaryCard.id,
                 thoughts: thoughts,
                 feelings: feelings,
-                diary_card_tracker_id: moodTracker.id,
                 score: moodScore
             }
+
+            if (moodTracker) {
+                updatedDiaryCard = {
+                    ...updatedDiaryCard,
+                    diary_card_tracker_id: moodTracker.id,
+                    score: moodScore
+                }
+            }
+
+            console.log(updatedDiaryCard)
             
             const diaryCardConfigObj = {
                 method: "PATCH",

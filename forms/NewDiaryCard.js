@@ -92,11 +92,14 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
     <View style={styles.container}>
       
       {/* Render selected date and time string from object */}
-      <View style={{padding: 80, flexDirection: 'row', justifyContent: 'space-around'}}>
-        <Button title={selectedDateString} onPress={() => {
-          setDatePickerVisibility(true)
-          setDatePickerMode('date')
-        }} />
+      <View style={{ padding: 80, flexDirection: 'row' }}>
+        <View style={{paddingRight: 50}}>
+          <Button title={selectedDateString} onPress={() => {
+            setDatePickerVisibility(true)
+            setDatePickerMode('date')
+          }} />
+        </View>
+
         <Button title={selectedTimeString} onPress={() => {
           setDatePickerVisibility(true)
           setDatePickerMode('time')

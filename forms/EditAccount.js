@@ -22,10 +22,10 @@ function EditAccount({ state, navigation, dispatch }) {
     <View style={styles.container}>
       
       <Text>Name</Text>
-      <TextInput defaultValue={name} onChangeText={name => setName(name)} />
+      <TextInput autoCapitalize={'none'} defaultValue={name} onChangeText={name => setName(name)} />
 
       <Text>Email</Text>
-      <TextInput defaultValue={email} onChangeText={email => setEmail(email)} />
+      <TextInput autoCapitalize={'none'} defaultValue={email} onChangeText={email => setEmail(email)} />
 
       <Button title="Submit" onPress={() => {
         console.log("In submit")

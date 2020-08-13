@@ -16,7 +16,7 @@ export default function EmergencyContact( { navigation, emergencyContact } ) {
         <View style={styles.container}>
         
             <Text>{emergencyContact.name}</Text>
-            <Text>{emergencyContact.professional ? "Therapist" : null}</Text>
+            {navigation ? <Text>{emergencyContact.professional ? "Therapist" : null}</Text> : null }
 
             {/* Style phone number when clickable */}
             <Text style={navigation ? null : {color: 'blue'}} onPress={() => { navigation ? Linking.openURL(`telprompt:${emergencyContact.phone_number}`) : null }}>{
