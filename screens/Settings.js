@@ -1,19 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { Text, View, Button } from 'react-native'
 
 import EmergencyContact from '../components/EmergencyContact'
+import styles from '../StyleSheet'
 
 function Settings( { state, navigation } ) {
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }
-  })
 
   const renderEmergencyContacts = () => {
     return state.emergency_contacts.map(emergency_contact => {
@@ -23,9 +15,14 @@ function Settings( { state, navigation } ) {
   
   return (
     <View style={styles.container}>
-      <Text>Emergency Contacts</Text>
-      <Button title="New Emergency Contact" onPress={() => {navigation.navigate("New Emergency Contact")}}/>
+      <Text style={styles.h6}>Emergency Contacts</Text>
       {renderEmergencyContacts()}
+      <Button title="New Emergency Contact" onPress={() => {navigation.navigate("New Emergency Contact")}}/>
+    
+      {/* Move Trackers here */}
+      {/* <Text style={styles.h6}>Trackers</Text>
+      <Button title="Add New Tracker" onPress={() => navigation.navigate("New Tracker")} /> */}
+      
     </View>
   )
 }

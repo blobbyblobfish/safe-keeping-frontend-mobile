@@ -1,9 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View } from 'react-native'
-import EmergencyContact from '../components/EmergencyContact'
+import { Text, View, Button } from 'react-native'
 
-function CallATherapist({ state }) {
+import EmergencyContact from '../components/EmergencyContact'
+import styles from '../StyleSheet'
+
+function CallATherapist({ navigation, state }) {
     
     function renderContacts() {
         const filteredContacts = state.emergency_contacts.filter(ec => ec.professional)
@@ -11,8 +13,9 @@ function CallATherapist({ state }) {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             {renderContacts()}
+            <Button title="Add A Contact" onPress={() => {navigation.navigate("New Emergency Contact")}} />
         </View>
     )
 }

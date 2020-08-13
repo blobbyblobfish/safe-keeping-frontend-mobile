@@ -95,7 +95,7 @@ function NewEmergencyContact({ route, navigation, state, dispatch }) {
                         }
                     })
 
-                    navigation.navigate("Settings")
+                    navigation.goBack()
                 })       
             }}
         />

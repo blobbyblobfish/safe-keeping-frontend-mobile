@@ -105,6 +105,7 @@ const HelpButtonStackNavigator = () => {
       <Stack.Screen name="Call A Friend" component={CallAFriend} />
       <Stack.Screen name="Call A Therapist" component={CallATherapist} />
       <Stack.Screen name="Call A Hotline" component={CallAHotline} />
+      <Stack.Screen name="New Emergency Contact" component={NewEmergencyContact} />
   </Stack.Navigator>
   )
 }

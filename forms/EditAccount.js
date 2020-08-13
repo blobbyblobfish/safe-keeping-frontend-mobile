@@ -1,18 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { Text, TextInput, View, Button } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
+import styles from '../StyleSheet'
 
 function EditAccount({ state, navigation, dispatch }) {
-    
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  })
 
   //Controlled inputs
   const [name, setName] = useState(state.auth.firstName)
@@ -25,7 +17,7 @@ function EditAccount({ state, navigation, dispatch }) {
       <TextInput autoCapitalize={'none'} defaultValue={name} onChangeText={name => setName(name)} />
 
       <Text>Email</Text>
-      <TextInput autoCapitalize={'none'} defaultValue={email} onChangeText={email => setEmail(email)} />
+      <TextInput  autoCapitalize={'none'} defaultValue={email} onChangeText={email => setEmail(email)} />
 
       <Button title="Submit" onPress={() => {
         console.log("In submit")

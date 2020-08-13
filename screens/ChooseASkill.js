@@ -6,7 +6,10 @@ import styles from '../StyleSheet'
 function ChooseASkill({ state, navigation }) {
 
     const [selectedSkill, setSelectedSkill] = useState(0)
-    const imgUrl = "https://images.unsplash.com/photo-1581701545134-c627459217a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+    const imgKey = "waves"
+    const imgGallery = {
+        waves: "https://images.unsplash.com/photo-1581701545134-c627459217a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    }
     
     function renderCarousel() {
         return (
@@ -16,7 +19,7 @@ function ChooseASkill({ state, navigation }) {
                     <Image 
                       style={{width: 100, height: 100, borderRadius: 20}}
                       source={{
-                      uri: imgUrl,
+                      uri: imgGallery[imgKey],
                     }}
                     />
                   </TouchableOpacity>

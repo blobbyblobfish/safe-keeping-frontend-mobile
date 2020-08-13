@@ -13,13 +13,14 @@ export default function EmergencyContact( { navigation, emergencyContact } ) {
     })
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container, {alignItems: 'center', padding: 20}}>
         
             <Text>{emergencyContact.name}</Text>
-            {navigation ? <Text>{emergencyContact.professional ? "Therapist" : null}</Text> : null }
+                {navigation ? <Text>{emergencyContact.professional ? "Therapist" : null}</Text>
+                : <Text style={{ color: 'white' }}>Hidden</Text>} 
 
             {/* Style phone number when clickable */}
-            <Text style={navigation ? null : {color: 'blue'}} onPress={() => { navigation ? Linking.openURL(`telprompt:${emergencyContact.phone_number}`) : null }}>{
+            <Text style={navigation ? null : {color: '#1384fc'}} onPress={() => { navigation ? Linking.openURL(`telprompt:${emergencyContact.phone_number}`) : null }}>{
                 emergencyContact.phone_number}
             </Text>
 

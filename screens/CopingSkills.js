@@ -10,25 +10,31 @@ function CopingSkills( { navigation, state } ) {
   const copingSkills = state.coping_skills
 
   // **TO DO** have image library to select from
-  const imgUrl = "https://images.unsplash.com/photo-1581701545134-c627459217a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+  const imgKey = "waves"
+  const imgGallery = {
+      waves: "https://images.unsplash.com/photo-1581701545134-c627459217a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  }
 
-  //Select skill
   let initialState = 0
 
   if (copingSkills[0]) {
     initialState = copingSkills[0].id
   }
 
+  //Select skill
   const [selectedSkill, setSelectedSkill] = useState(initialState)
 
   function renderCarousel() {
-    return copingSkills.map(skill =>
-      <View style={{ flex: 1, alignItems: 'center', padding: 10 }}>
+
+    //Sort by ID
+    return copingSkills.sort((a, b) => a.id > b.id ? 1 : -1).map(skill =>
+      
+      <View style={{ flex: 1, alignItems: 'center'}}>
         <TouchableOpacity onPress={() => setSelectedSkill(skill.id)}>
           <Image 
             style={{width: 100, height: 100, borderRadius: 20}}
             source={{
-            uri: imgUrl,
+            uri: imgGallery[imgKey],
           }}
           />
         </TouchableOpacity>
@@ -48,10 +54,7 @@ function CopingSkills( { navigation, state } ) {
   
   return (
     <View style={styles.container}>     
-      <ScrollView
-        horizontal
-        contentContainerStyle={styles.horizontalContainer}
-      >
+      <ScrollView horizontal contentContainerStyle={styles.horizontalContainer}>
         {renderCarousel()}
       </ScrollView>
 
@@ -62,7 +65,7 @@ function CopingSkills( { navigation, state } ) {
       />
       </View>
 
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ width: 325}}>
         {renderCopingSkill()}
       </ScrollView>
     </View>
