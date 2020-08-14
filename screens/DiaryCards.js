@@ -55,7 +55,7 @@ function DiaryCards({ navigation, state, }) {
     })
     
     //Render Diary Cards
-    return filteredDiaryCards.map(diary_card => {
+    return filteredDiaryCards.sort((a, b) => a.entry_timestamp > b.entry_timestamp ? 1 : -1).map(diary_card => {
       return <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
     })
   }
