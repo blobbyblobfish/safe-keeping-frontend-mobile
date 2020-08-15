@@ -5,7 +5,14 @@ import { Text, View, Button, ScrollView } from 'react-native'
 import EmergencyContact from '../components/EmergencyContact'
 import styles from '../StyleSheet'
 
-function Settings( { state, navigation } ) {
+function Settings({ state, navigation }) {
+  
+  const renderTherapists = () => {
+    return <View>
+      <Text>{state.therapist.name}</Text>
+      <Text>{state.therapist.email}</Text>
+    </View>
+  }
 
   const renderEmergencyContacts = () => {
     return state.emergency_contacts.map(emergency_contact => {
@@ -15,6 +22,14 @@ function Settings( { state, navigation } ) {
   
   return (
     <ScrollView contentContainerStyle={styles.profileScrollView}>
+      <Text style={{ fontWeight: 'bold', paddingTop: 30, margin: 15 }}>Link Therapist Account</Text>
+      
+      {renderTherapists()}
+    
+      <View style={{marginTop: 10, marginBottom: 20}}>
+        <Button title="Add Therapist" onPress={() => {navigation.navigate("Add Therapist")}}/>
+      </View>
+      
       <Text style={{fontWeight: 'bold', paddingTop: 30, margin: 15}}>Emergency Contacts</Text>
 
       {renderEmergencyContacts()}

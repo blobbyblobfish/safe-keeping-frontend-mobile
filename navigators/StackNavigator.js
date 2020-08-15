@@ -29,6 +29,7 @@ import NewTracker from '../forms/NewTracker'
 import NewCopingSkill from '../forms/NewCopingSkill'
 import EditCopingSkill from '../forms/EditCopingSkill'
 import EditAccount from "../forms/EditAccount"
+import AddTherapist from '../forms/AddTherapist'
 
 const Stack = createStackNavigator()
 
@@ -66,6 +67,7 @@ const ProfileStackNavigator = (screenProps) => {
         <Stack.Screen name="Edit Account" component={EditAccount} initialParams={screenProps} />
         <Stack.Screen name="Trends" component={Trends} />
         <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="Add Therapist" component={AddTherapist} />
         <Stack.Screen name="New Emergency Contact" component={NewEmergencyContact} />
         <Stack.Screen name="Edit Emergency Contact" component={EditEmergencyContact} />
         <Stack.Screen name="New Tracker" component={NewTracker} />

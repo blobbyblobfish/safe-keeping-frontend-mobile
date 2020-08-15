@@ -71,7 +71,7 @@ function AppRoot( { state, dispatch } ) {
                 payload: trackers
               })
             }
-            })
+          })
           .catch(console.log)
       }
     })
