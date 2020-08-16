@@ -2,7 +2,8 @@ const initialState = {
     token: '',
     id: 0,
     email: '',
-    firstName: ''
+    firstName: '',
+    createdAt: ''
 }
 
 export default (state = initialState, action) => {
@@ -13,7 +14,8 @@ export default (state = initialState, action) => {
                 token: action.payload.token,
                 id: action.payload.user.id,
                 email: action.payload.user.email,
-                firstName: action.payload.user.first_name
+                firstName: action.payload.user.first_name,
+                createdAt: action.payload.user.created_at
             }
         
         case "PERSIST_LOGIN":
@@ -21,7 +23,8 @@ export default (state = initialState, action) => {
                 token: action.payload.token,
                 id: action.payload.user.id,
                 email: action.payload.user.email,
-                firstName: action.payload.user.first_name
+                firstName: action.payload.user.first_name,
+                createdAt: action.payload.user.created_at
             }
         
         case "LOGOUT":
@@ -32,7 +35,8 @@ export default (state = initialState, action) => {
                 token: state.token,
                 id: action.payload.id,
                 email: action.payload.email,
-                firstName: action.payload.first_name
+                firstName: action.payload.first_name,
+                createdAt: action.payload.user.created_at
             }
 
         default: return state

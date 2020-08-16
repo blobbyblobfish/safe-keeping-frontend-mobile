@@ -36,6 +36,8 @@ function AppRoot( { state, dispatch } ) {
             const emergencyContacts = json.emergency_contacts
             const trackers = json.trackers
 
+            console.log(json)
+
             dispatch({
               type: "PERSIST_LOGIN",
               payload: {

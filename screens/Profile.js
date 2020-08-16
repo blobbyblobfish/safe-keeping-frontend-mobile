@@ -4,12 +4,18 @@ import { Text, View, Button, ScrollView } from 'react-native'
 import styles from '../StyleSheet'
 
 function Profile({ state, navigation }) {
+
+  const createdAtObj = new Date(state.auth.createdAt)
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const createdAtString = `${months[createdAtObj.getMonth()]} ${createdAtObj.getDate()} ${createdAtObj.getFullYear()}`
   
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={{color: 'gray', marginBottom: 10}}>Account</Text>
       <Text style={styles.p} >{state.auth.firstName}</Text>
-      <Text>{state.auth.email}</Text>
+      <Text style={styles.p} >{state.auth.email}</Text>
+      {/* ** TO DO** get created at timestamp from backend */}
+      <Text style={{ color: 'gray', marginBottom: 10 }}>Member since {createdAtString}</Text>
       <View style={{marginTop: 20, marginBottom: 20}}>
         <Button
             title="Edit Account"
