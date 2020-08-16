@@ -79,7 +79,7 @@ function EditAccount({ state, navigation, dispatch }) {
       }} />
 
       <View style={{paddingTop: 80}}>
-      <Button title="Delete" onPress={confirmAlert}/>
+      <Button title="Delete Account" onPress={confirmAlert}/>
       </View>
       
     </View>
