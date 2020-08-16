@@ -14,7 +14,6 @@ function Profile({ state, navigation }) {
       <Text style={{color: 'gray', marginBottom: 10}}>Account</Text>
       <Text style={styles.p} >{state.auth.firstName}</Text>
       <Text style={styles.p} >{state.auth.email}</Text>
-      {/* ** TO DO** get created at timestamp from backend */}
       <Text style={{ color: 'gray', marginBottom: 10 }}>Member since {createdAtString}</Text>
       <View style={{marginTop: 20, marginBottom: 20}}>
         <Button
