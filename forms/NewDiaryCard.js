@@ -13,11 +13,13 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
   const [datePickerMode, setDatePickerMode] = useState('date')
 
   //Make default date the selected date from prev page
+  const now = new Date()
   let datestring = route.params.datestring
-  const currentHour = new Date().getHours()
-  const currentMinute = new Date().getMinutes()
+  const currentHour = now.getHours()
+  const currentMinute = now.getMinutes()
+  const offset = now.getTimezoneOffset() / 60
 
-  datestring = `${datestring} ${currentHour}:${currentMinute}`
+  datestring = `${datestring}T${currentHour}:${currentMinute}:00.000-${offset < 10 ? 0 : null}${offset}:00`
 
   const parsedDate =  Date.parse(datestring)
   const defaultDateObj = new Date(parsedDate)
@@ -87,8 +89,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
   const selectedTimeString = `${hour}:${minutes} ${period}`
   
   return (
-    <View style={styles.container}>
-      
+    <View style={styles.container}>      
       {/* Render selected date and time string from object */}
       <View style={{ padding: 80, flexDirection: 'row' }}>
         <View style={{paddingRight: 50}}>
