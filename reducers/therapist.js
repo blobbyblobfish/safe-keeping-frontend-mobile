@@ -3,6 +3,9 @@ const initialState = {name: '', email: '', id: 0}
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case "SET_THERAPIST":
+            return action.payload.therapist
+        
         case "ADD_THERAPIST":
             return action.payload.therapist
         

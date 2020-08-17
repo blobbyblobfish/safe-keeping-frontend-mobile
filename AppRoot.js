@@ -35,8 +35,7 @@ function AppRoot( { state, dispatch } ) {
             const diaryCards = json.diary_cards
             const emergencyContacts = json.emergency_contacts
             const trackers = json.trackers
-
-            console.log(json)
+            // Modify backend serialization and fetch therapists
 
             dispatch({
               type: "PERSIST_LOGIN",
