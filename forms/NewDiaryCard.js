@@ -19,7 +19,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
   const currentMinute = now.getMinutes()
   const offset = now.getTimezoneOffset() / 60
 
-  datestring = `${datestring}T${currentHour}:${currentMinute}:00.000-${offset < 10 ? 0 : null}${offset}:00`
+  datestring = `${datestring}T${currentHour < 10 ? 0 : ''}${currentHour}:${currentMinute < 10 ? 0 : ''}${currentMinute}:00.000-${offset < 10 ? 0 : ''}${offset}:00`
 
   const parsedDate =  Date.parse(datestring)
   const defaultDateObj = new Date(parsedDate)
@@ -51,7 +51,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
       }
     }
 
-    const selectedTimeString = `${selectedYear}-${selectedMonth}-${selectedDay} ${selectedHour}:${selectedMinutes}`
+    const selectedTimeString = `${selectedYear}-${selectedMonth < 10 ? 0 : ''}${selectedMonth}-${selectedDay < 10 ? 0 : ''}${selectedDay}T${selectedHour < 10 ? 0 : ''}${selectedHour}:${selectedMinutes < 10 ? 0 : ''}${selectedMinutes}:00.000-${offset < 10 ? 0 : ''}${offset}:00`
 
     //Get date object based on timestring
     const parsedSelectedDate = Date.parse(selectedTimeString)
