@@ -5,6 +5,9 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case "ADD_THERAPIST":
             return action.payload.therapist
+        
+        case "REMOVE_THERAPIST":
+            return initialState
 
         default: 
             return state

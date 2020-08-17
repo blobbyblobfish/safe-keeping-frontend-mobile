@@ -5,12 +5,29 @@ import { Text, View, Button, ScrollView } from 'react-native'
 import EmergencyContact from '../components/EmergencyContact'
 import styles from '../StyleSheet'
 
-function Settings({ state, navigation }) {
+function Settings({ state, navigation, dispatch }) {
   
   const renderTherapists = () => {
-    return <View>
-      <Text>{state.therapist.name}</Text>
-      <Text>{state.therapist.email}</Text>
+    return <View style={styles.container, {alignItems: 'center', padding: 20}}>
+      <Text style={{ marginBottom: 10 }}>{state.therapist.name}</Text>
+      <Text style={{ marginBottom: 10 }}>{state.therapist.email}</Text>
+
+      {/* Render remove button if therapist */}
+      {state.therapist.id > 0 ? <Button title="Remove" onPress={() => {
+        const configObj = {
+          method: "DELETE",
+          body: JSON.stringify({user_id: state.auth.id})
+        }
+
+        // Currently users can only add one therapist. Update this when the feature is expanded
+        fetch(`http://localhost:3000/user_therapists`, configObj)
+          .then(resp => resp.json())
+          .then(json => {
+            dispatch({type: "REMOVE_THERAPIST", payload: json})
+          })
+        
+      }} />
+      : null}
     </View>
   }
 
