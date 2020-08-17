@@ -27,7 +27,9 @@ function Settings({ state, navigation, dispatch }) {
           })
         
       }} />
-      : null}
+      : <View style={{marginTop: 10, marginBottom: 20}}>
+        <Button title="Add Therapist" onPress={() => {navigation.navigate("Add Therapist")}}/>
+      </View>}
     </View>
   }
 
@@ -43,9 +45,9 @@ function Settings({ state, navigation, dispatch }) {
       
       {renderTherapists()}
     
-      <View style={{marginTop: 10, marginBottom: 20}}>
+      {/* <View style={{marginTop: 10, marginBottom: 20}}>
         <Button title="Add Therapist" onPress={() => {navigation.navigate("Add Therapist")}}/>
-      </View>
+      </View> */}
       
       <Text style={{fontWeight: 'bold', paddingTop: 30, margin: 15}}>Emergency Contacts</Text>
 
