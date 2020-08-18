@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Text, TextInput, View, Button } from 'react-native'
+import { Text, TextInput, View, Button, Alert } from 'react-native'
 import styles from '../StyleSheet'
 
 function AddTherapist({ navigation, state, dispatch }) {
@@ -21,8 +21,20 @@ function AddTherapist({ navigation, state, dispatch }) {
         fetch(`http://localhost:3000/user_therapists`, configObj)
             .then(resp => resp.json())
             .then(json => {
-                dispatch({ type: "ADD_THERAPIST", payload: json })
-                navigation.navigate("Settings")
+                if (json.id) {
+                    dispatch({ type: "ADD_THERAPIST", payload: json })
+                    navigation.navigate("Settings")
+                }
+                else {
+                    Alert.alert("Could not find that therapist",
+                        "Please try again",
+                        [
+                            {
+                                text: "Ok",
+                                onPress: () => { }
+                            }
+                        ])
+                }
             })
     }
 
