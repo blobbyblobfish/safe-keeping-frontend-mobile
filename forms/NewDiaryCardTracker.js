@@ -50,7 +50,7 @@ function NewDiaryCardTrackers ( {route, navigation, state, dispatch } ) {
                 body: JSON.stringify(newDiaryCardTracker)
             }
                 
-            fetch("http://localhost:3000/diary_card_trackers", configObj)
+            fetch("https://safe-keeping-backend.herokuapp.com/diary_card_trackers", configObj)
                 .then(resp => resp.json())
                 .then(json => {
                     dispatch({

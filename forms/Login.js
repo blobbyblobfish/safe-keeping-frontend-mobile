@@ -36,7 +36,7 @@ function Login({ dispatch }) {
             body: JSON.stringify(credentials)
         }
 
-        fetch(`http://localhost:3000/users/login`, configObj)
+        fetch(`https://safe-keeping-backend.herokuapp.com/users/login`, configObj)
             .then(resp => resp.json())
             .then(json => {
                 const copingSkills = json.user.coping_skills

@@ -42,7 +42,7 @@ function EditEmergencyContact({ route, state, dispatch, navigation }) {
                 {
                     text: "Delete",
                     onPress: () => {
-                        fetch(`http://localhost:3000/emergency_contacts/${id}`, { method: "DELETE" })
+                        fetch(`https://safe-keeping-backend.herokuapp.com/emergency_contacts/${id}`, { method: "DELETE" })
                             .then(resp => resp.json())
                             .then(json => {
                                 dispatch({ type: "REMOVE_EMERGENCY_CONTACT", payload: { id: json.id } })
@@ -86,7 +86,7 @@ function EditEmergencyContact({ route, state, dispatch, navigation }) {
                     body: JSON.stringify(updatedEmergencyContact)
                 }
 
-                fetch(`http://localhost:3000/emergency_contacts/${id}`, configObj)
+                fetch(`https://safe-keeping-backend.herokuapp.com/emergency_contacts/${id}`, configObj)
                     .then(resp => resp.json())
                     .then(json => {
                         dispatch({

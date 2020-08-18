@@ -18,7 +18,7 @@ function AddTherapist({ navigation, state, dispatch }) {
             body: JSON.stringify({email: email, user_id: state.auth.id})
         }
 
-        fetch(`http://localhost:3000/user_therapists`, configObj)
+        fetch(`https://safe-keeping-backend.herokuapp.com/user_therapists`, configObj)
             .then(resp => resp.json())
             .then(json => {
                 dispatch({ type: "ADD_THERAPIST", payload: json })

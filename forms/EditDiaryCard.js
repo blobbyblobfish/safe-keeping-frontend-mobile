@@ -35,7 +35,7 @@ function EditDiaryCard( { navigation, route, dispatch } ) {
                 {
                     text: "Delete",
                     onPress: () => {
-                        fetch(`http://localhost:3000/diary_cards/${diaryCard.id}`, { method: "DELETE" })
+                        fetch(`https://safe-keeping-backend.herokuapp.com/diary_cards/${diaryCard.id}`, { method: "DELETE" })
                             .then(resp => resp.json())
                             .then(json => dispatch({ type: "REMOVE_DIARY_CARD", payload: json }))
                             .then(navigation.navigate("Diary Cards"))
@@ -108,7 +108,7 @@ function EditDiaryCard( { navigation, route, dispatch } ) {
                 body: JSON.stringify(updatedDiaryCard)
             }
 
-            fetch(`http://localhost:3000/diary_cards/${diaryCard.id}`, diaryCardConfigObj)
+            fetch(`https://safe-keeping-backend.herokuapp.com/diary_cards/${diaryCard.id}`, diaryCardConfigObj)
                     .then(resp => resp.json())
                     .then(json => {
                         dispatch({

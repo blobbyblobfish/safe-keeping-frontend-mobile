@@ -71,7 +71,7 @@ function NewEmergencyContact({ navigation, state, dispatch }) {
                 body: JSON.stringify(newEmergencyContact)
             }
                 
-            fetch(`http://localhost:3000/emergency_contacts`, configObj)
+            fetch(`https://safe-keeping-backend.herokuapp.com/emergency_contacts`, configObj)
                 .then(resp => resp.json())
                 .then(json => {
                     //Update state

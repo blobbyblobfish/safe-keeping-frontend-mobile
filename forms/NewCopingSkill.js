@@ -61,7 +61,7 @@ function NewCopingSkill( { navigation, state, dispatch } ) {
           body: JSON.stringify(newCopingSkill)
         }
 
-        fetch(`http://localhost:3000/coping_skills`, configObj)
+        fetch(`https://safe-keeping-backend.herokuapp.com/coping_skills`, configObj)
           .then(resp => resp.json())
           .then(json => {
             dispatch({

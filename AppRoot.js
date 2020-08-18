@@ -14,7 +14,7 @@ function AppRoot( { state, dispatch } ) {
   useEffect(() => {
 
     // ** SHORTCUT **
-    // fetch('http://localhost:3000/users/30')
+    // fetch('https://safe-keeping-backend.herokuapp.com/users/30')
     //   .then(resp => resp.json())
     //   .then(json => {
     //     console.log(json)
@@ -27,7 +27,7 @@ function AppRoot( { state, dispatch } ) {
       if (token) {
         const id = token.slice(84)
         
-        fetch(`http://localhost:3000/users/${id}`)
+        fetch(`https://safe-keeping-backend.herokuapp.com/users/${id}`)
           .then(resp => resp.json())
           .then(json => {
             
