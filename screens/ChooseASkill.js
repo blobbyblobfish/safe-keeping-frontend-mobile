@@ -20,8 +20,9 @@ function ChooseASkill({ state, navigation }) {
             }
         
             return (
-                <TouchableOpacity style={{ flex: 1, alignItems: 'center', padding: 10}} onPress={() => setSelectedSkill(skill.id)}>
-                    <Image 
+                <TouchableOpacity key={`touchable-opacity-${skill.id}`} style={{ flex: 1, alignItems: 'center', padding: 10}} onPress={() => setSelectedSkill(skill.id)}>
+                    <Image
+                        key={`image-${skill.id}`}
                         style={{width: 100, height: 100, borderRadius: 20, opacity: opacity}}
                         source={{
                         uri: imgGallery[imgKey]

@@ -37,8 +37,9 @@ function CopingSkills( { navigation, state } ) {
       }
       
       return (
-        <TouchableOpacity style={{ flex: 1, alignItems: 'center' }} onPress={() => {setSelectedSkill(skill.id)}}>
+        <TouchableOpacity key={`touchable-opacity-${skill.id}`} style={{ flex: 1, alignItems: 'center' }} onPress={() => {setSelectedSkill(skill.id)}}>
           <Image 
+            key={`image-${skill.id}`}
             style={{width: 100, height: 100, borderRadius: 20, opacity: opacity}}
             source={{
             uri: imgGallery[imgKey]
