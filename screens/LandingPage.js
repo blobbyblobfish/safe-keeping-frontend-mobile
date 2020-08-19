@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Text, View, TextInput, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
-import * as SecureStore from 'expo-secure-store'
 import styles from '../StyleSheet'
 
-import { Asset } from 'expo-asset'
 import Svg, { Image } from 'react-native-svg'
 import Animated, { Easing } from 'react-native-reanimated'
 import { TapGestureHandler, State } from 'react-native-gesture-handler'
@@ -12,22 +10,7 @@ const { Value, block, cond, set, Clock, startClock, stopClock, debug,
     timing, clockRunning, interpolate, Extrapolate, concat } = Animated
 const { width, height } = Dimensions.get('window')
 
-function LandingPage({ state, navigation, dispatch }) {
-    
-    // const imgUrl = "https://lh3.googleusercontent.com/47TonPHhfwuJHlFIiZEyl9jfqgCdbNoO2ng9jWihBoevhaGywKntfOKOLiwcOqGLrbDDcT_Fq08lWWEoqygRrQehAk3nrqbpVyM-bSYV0rnf5kBGUT2kbB5c0zSj53tu1w6AhXE3s36cr4OGNjWhuvPGhkmSN06xXx6ejxKiM5EkoghQjtk-ByrEGGnQmLQaZzLArzEC66olmMI4IqpHzAiztlligfDfz9OmZwKl_MiHaor1zjDzZeH9NHvA2B2_oTgQ5FjLZmxafDrY1ELNfsxuRiHjPB1_X0VlNwpEmIB9AZ9NSmTIs7hh_5HzPLC20_-RuWjR8gGmV85Pl26ebz7JxtwUIMm9EUAKzkdf36T7v3NRp1Bg13DKc6X7Ys0VxS-ww-Ddo8feVxQTPJarMP8pFa_ExQHW6sN8YljipJgnZDsd4EXRn5ILiiL2bJ4pjGAhRIjxzwyISfWLOmbrQuDN8oXmojrGkjpKio4mWNkl_xtlT9GpIK5xrR1lPMgjbRI-IqaldEKd9ZKONMeoOOVWHLZacf_Cw6M9di3BAR0mJ__IQXs8B1qsYCGsUIUumN5MlnV3M9C8D-gdgEZASSkgGa-MjNs9NhLrHtrDDxaV_WO-imUJEIUGpcFN_DX1nq7knK2oKaGtZFhinj57DxZfUpg7dreLCCqNNQl9oS1QkI3OVnja-IQtNO22Kg=w403-h739-no?authuser=0"
-    
-    // function renderComponents() {     
-        //     if (!state.auth.token) {
-            //         return (
-                //             <View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 180}}>
-                //                 <View style={{paddingBottom: 20}}>
-                //                     <Button title="Login" onPress={() => navigation.navigate("Login")}/>
-                //                 </View>
-                //                 <Button title="Create an Account" onPress={() => navigation.navigate("Create An Account")}/>
-                //             </View>
-                //         )
-                //     }
-                // }
+function LandingPage({ navigation }) {
 
     //State and controlled inputs
     const [buttonOpacity, setButtonOpacity] = useState(1)
@@ -129,48 +112,7 @@ function LandingPage({ state, navigation, dispatch }) {
         fetch(`http://localhost:3000/users/login`, configObj)
             .then(resp => resp.json())
             .then(json => {
-                const copingSkills = json.user.coping_skills
-                const diaryCards = json.user.diary_cards
-                const emergencyContacts = json.user.emergency_contacts
-                const trackers = json.user.trackers
-
-                if (json.token) {
-                    const tokenId = `${json.token}${json.user.id}`
-                    SecureStore.setItemAsync("token", tokenId)
-
-                    dispatch({
-                        type: "LOGIN",
-                        payload: json
-                    })
-                }
-
-                if (copingSkills) {
-                    dispatch({
-                        type: "SET_COPING_SKILLS",
-                        payload: copingSkills
-                    })
-                }
-
-                if (diaryCards) {
-                    dispatch({
-                        type: "SET_DIARY_CARDS",
-                        payload: diaryCards
-                    })
-                }
-
-                if (emergencyContacts) {
-                    dispatch({
-                        type: "SET_EMERGENCY_CONTACTS",
-                        payload: emergencyContacts
-                    })
-                }
-
-                if (trackers) {
-                    dispatch({
-                        type: "SET_TRACKERS",
-                        payload: trackers
-                    })
-                }
+                navigation.navigate("Loading", {json: json})
             })
             .catch(console.log)
     }

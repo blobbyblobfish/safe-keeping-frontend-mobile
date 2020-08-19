@@ -2,6 +2,7 @@ import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 
 import LandingPage from "../screens/LandingPage"
+import Loading from '../screens/Loading'
 import Profile from "../screens/Profile"
 import About from "../screens/About"
 import More from "../screens/More"
@@ -47,6 +48,7 @@ const LandingPageStackNavigator = () => {
       <Stack.Screen name="Safe Keeping" component={LandingPage} options={{ headerShown: false }} />
       {/* <Stack.Screen name="Login" component={Login} /> */}
       <Stack.Screen name="Create An Account" component={Register} />
+      <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }}/>
     </Stack.Navigator>
   )
 }
