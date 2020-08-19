@@ -45,18 +45,21 @@ function Loading({ dispatch, route }) {
 
         if (json.token) {
             const tokenId = `${json.token}${json.user.id}`
-            SecureStore.setItemAsync("token", tokenId)
+            
+            setTimeout(() => {
+                SecureStore.setItemAsync("token", tokenId)
 
-            dispatch({
-                type: "LOGIN",
-                payload: json
-            })
+                dispatch({
+                    type: "LOGIN",
+                    payload: json
+                })
+            }, 750)
         }
     })
   
     return (
         <View style={styles.container}>
-            <ActivityIndicator />
+            <ActivityIndicator color="#006DA9" />
             {/* <ImageBackground source={{uri: imgUrl}} style={{ width: 400, height: 800, borderRadius: 20 }}/> */}
         </View>
     )
