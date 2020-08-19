@@ -29,8 +29,7 @@ function LandingPage({ state, navigation }) {
                 // }
 
     //State and controlled inputs
-    // const [buttonOpacity, setButtonOpacity] = useState(1)
-    let buttonOpacity = 1
+    const [buttonOpacity, setButtonOpacity] = useState(1)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -105,6 +104,12 @@ function LandingPage({ state, navigation }) {
         }
     }
 
+    function onCloseState({ nativeEvent }) {
+        if (nativeEvent.state === State.END) {
+            setButtonOpacity(runTiming(new Clock(), 0, 1))
+        }
+    }
+
     function handleLogin() {
         const credentials = {
             email: email,
@@ -168,13 +173,6 @@ function LandingPage({ state, navigation }) {
             })
             .catch(console.log)
     }
-
-    // Reversal not working
-    function onCloseState({ nativeEvent }) {
-        if (nativeEvent.state === State.END) {
-            setButtonOpacity(runTiming(new Clock(), 1, 0))
-        }
-    }
             
     return (
         <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'flex-end' }}>
@@ -224,8 +222,18 @@ function LandingPage({ state, navigation }) {
                     </Animated.View>
                 </TapGestureHandler>
                 
-                <TextInput placeholder="email" value={email} onChangeText={(email) => {setEmail(email)}} placeholderTextColor="black" style={styles.textInput} />
-                <TextInput placeholder="password" value={password} onChangeText={(password) => { setPassword(password) }} secureTextEntry placeholderTextColor="black" style={styles.textInput}/>
+                <TextInput placeholder="email" value={email} placeholderTextColor="black" style={styles.textInput} autoCapitalize={'none'}
+                     onChangeText={(email) => {
+                        setEmail(email)
+                        setButtonOpacity(0)
+                    }}
+                />
+                <TextInput placeholder="password" value={password} placeholderTextColor="black" style={styles.textInput} autoCapitalize={'none'} secureTextEntry
+                    onChangeText={(password) => {
+                        setPassword(password)
+                        setButtonOpacity(0)
+                    }} 
+                />
             
             </Animated.View>
 
