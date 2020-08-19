@@ -53,6 +53,19 @@ const styles = StyleSheet.create({
     diaryCard: {
         paddingLeft: 10,
         paddingBottom: 10
+    },
+    button: {
+        backgroundColor: 'white',
+        height: 70,
+        marginHorizontal: 20,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 5
+    },
+    buttonContainer: {
+        height: dimensions.height / 3,
+        justifyContent: 'center'
     }
 })
 
