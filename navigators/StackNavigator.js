@@ -35,7 +35,7 @@ const Stack = createStackNavigator()
 
 const screenOptionStyle = {
   headerStyle: {
-    backgroundColor: "#9AC4F8",
+    backgroundColor: "#006DA9",
   },
   headerTintColor: "white",
   headerBackTitle: "Back"
@@ -45,7 +45,7 @@ const LandingPageStackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Safe Keeping" screenOptions={screenOptionStyle} >
       <Stack.Screen name="Safe Keeping" component={LandingPage} options={{ headerShown: false }} />
-      <Stack.Screen name="Login" component={Login} />
+      {/* <Stack.Screen name="Login" component={Login} /> */}
       <Stack.Screen name="Create An Account" component={Register} />
     </Stack.Navigator>
   )
