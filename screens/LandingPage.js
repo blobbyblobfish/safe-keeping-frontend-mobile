@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Text, View, Button, Image, ImageBackground, StyleSheet, Alert, Dimensions } from 'react-native'
+import { Text, View, TextInput, Button, Image, ImageBackground, StyleSheet, Alert, Dimensions } from 'react-native'
 import styles from '../StyleSheet'
 
 import { Asset } from 'expo-asset'
@@ -83,6 +83,24 @@ function LandingPage({ state, navigation }) {
         outputRange: [-height / 3, 0],
         extrapolate: Extrapolate.CLAMP
     })
+
+    const textInputZIndex = interpolate(buttonOpacity, {
+        inputRange: [0, 1],
+        outputRange: [1, -1],
+        extrapolate: Extrapolate.CLAMP
+    })
+
+    const textInputY = interpolate(buttonOpacity, {
+        inputRange: [0, 1],
+        outputRange: [0, 100],
+        extrapolate: Extrapolate.CLAMP
+    })
+
+    const textInputOpacity = interpolate(buttonOpacity, {
+        inputRange: [0, 1],
+        outputRange: [1, 0],
+        extrapolate: Extrapolate.CLAMP
+    })
     
     function onStateChange ({ nativeEvent }) {
         if (nativeEvent.state === State.END) {
@@ -96,7 +114,7 @@ function LandingPage({ state, navigation }) {
             
             {/* Background image */}
             <Animated.View style={{...StyleSheet.absoluteFill, transform: [{ translateY: bgY }]}}>
-                <Image source={require('../assets/bg.png')} style={{ flex: 1, width: null, height: null }} />
+                <Image source={require('../assets/bg.jpeg')} style={{ flex: 1, width: null, height: null }} />
             </Animated.View>
 
             {/* UI */}
@@ -113,6 +131,15 @@ function LandingPage({ state, navigation }) {
                 </Animated.View>
 
             </View>
+
+            <Animated.View style={{ zIndex: textInputZIndex, opacity: textInputOpacity, transform: [{translateY: textInputY}], height: height/3, ...StyleSheet.absoluteFill, justifyContent: 'center', paddingTop: 500}}>
+                <TextInput placeholder="email" placeholderTextColor="black" style={styles.textInput} />
+                <TextInput placeholder="password" placeholderTextColor="black" style={styles.textInput}/>
+            </Animated.View>
+
+            <Animated.View style={{...styles.button, zIndex: textInputZIndex, opacity: textInputOpacity, transform: [{translateY: textInputY}], }}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Submit</Text>
+            </Animated.View>
 
             {/* <ImageBackground source={{uri: imgUrl}} style={{ width: 400, height: 800, borderRadius: 20 }}>
                 {renderComponents()}

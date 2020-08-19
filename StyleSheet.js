@@ -66,6 +66,15 @@ const styles = StyleSheet.create({
     buttonContainer: {
         height: dimensions.height / 3,
         justifyContent: 'center'
+    },
+    textInput: { 
+        height: 50, 
+        borderRadius: 25,
+        borderWidth: 0.5,
+        marginHorizontal: 20,
+        paddingLeft: 10,
+        marginVertical: 5,
+        borderColor: 'rgba(0,0,0,0.2)'
     }
 })
 
