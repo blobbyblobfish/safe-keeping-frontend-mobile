@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Text, View, TextInput, Button, Image, ImageBackground, StyleSheet, Alert, Dimensions } from 'react-native'
+import { Text, View, TextInput, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import styles from '../StyleSheet'
 
 import { Asset } from 'expo-asset'
+import Svg, { Image } from 'react-native-svg'
 import Animated, { Easing } from 'react-native-reanimated'
 import { TapGestureHandler, State } from 'react-native-gesture-handler'
-const { Value, event, block, cond, eq, set, Clock, startClock, stopClock, debug, timing, clockRunning, interpolate, Extrapolate } = Animated
+const { Value, block, cond, set, Clock, startClock, stopClock, debug,
+    timing, clockRunning, interpolate, Extrapolate, concat } = Animated
 const { width, height } = Dimensions.get('window')
 
 function LandingPage({ state, navigation }) {
@@ -26,22 +28,11 @@ function LandingPage({ state, navigation }) {
                 //     }
                 // }
 
-    // constructor() {
-    //     super()
-
-    //     console.log(State["END"])
-
-        // this.buttonOpacity = new Value(1)
-        // this.onStateChange = event([
-        //     {
-        //         nativeEvent: ({ state }) => block([
-        //             cond(eq(state, State["END"])), set(this.buttonOpacity, 0)
-        //         ])
-        //     }
-        // ])
-    // }
-
-    const [buttonOpacity, setButtonOpacity] = useState(1)
+    //State and controlled inputs
+    // const [buttonOpacity, setButtonOpacity] = useState(1)
+    let buttonOpacity = 1
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     function runTiming(clock, value, dest) {
         const state = {
@@ -80,7 +71,7 @@ function LandingPage({ state, navigation }) {
 
     const bgY = interpolate(buttonOpacity, {
         inputRange: [0, 1],
-        outputRange: [-height / 3, 0],
+        outputRange: [-height / 3 - 40, 0],
         extrapolate: Extrapolate.CLAMP
     })
 
@@ -101,20 +92,108 @@ function LandingPage({ state, navigation }) {
         outputRange: [1, 0],
         extrapolate: Extrapolate.CLAMP
     })
+
+    const rotateCross = interpolate(buttonOpacity, {
+        inputRange: [0, 1],
+        outputRange: [180, 360],
+        extrapolate: Extrapolate.CLAMP
+    })
     
     function onStateChange ({ nativeEvent }) {
         if (nativeEvent.state === State.END) {
             setButtonOpacity(runTiming(new Clock(), 1, 0))
-            console.log(buttonOpacity)
+        }
+    }
+
+    function handleLogin() {
+        const credentials = {
+            email: email,
+            password: password
+        }
+
+        const configObj = {
+            method: "POST", 
+            headers: {
+                "content-type": "application/json",
+                "accepts": "application/json"
+            },
+            body: JSON.stringify(credentials)
+        }
+
+        fetch(`http://localhost:3000/users/login`, configObj)
+            .then(resp => resp.json())
+            .then(json => {
+                const copingSkills = json.user.coping_skills
+                const diaryCards = json.user.diary_cards
+                const emergencyContacts = json.user.emergency_contacts
+                const trackers = json.user.trackers
+
+                if (json.token) {
+                    const tokenId = `${json.token}${json.user.id}`
+                    SecureStore.setItemAsync("token", tokenId)
+
+                    dispatch({
+                        type: "LOGIN",
+                        payload: json
+                    })
+                }
+
+                if (copingSkills) {
+                    dispatch({
+                        type: "SET_COPING_SKILLS",
+                        payload: copingSkills
+                    })
+                }
+
+                if (diaryCards) {
+                    dispatch({
+                        type: "SET_DIARY_CARDS",
+                        payload: diaryCards
+                    })
+                }
+
+                if (emergencyContacts) {
+                    dispatch({
+                        type: "SET_EMERGENCY_CONTACTS",
+                        payload: emergencyContacts
+                    })
+                }
+
+                if (trackers) {
+                    dispatch({
+                        type: "SET_TRACKERS",
+                        payload: trackers
+                    })
+                }
+            })
+            .catch(console.log)
+    }
+
+    // Reversal not working
+    function onCloseState({ nativeEvent }) {
+        if (nativeEvent.state === State.END) {
+            setButtonOpacity(runTiming(new Clock(), 1, 0))
         }
     }
             
     return (
         <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'flex-end' }}>
-            
+        
             {/* Background image */}
             <Animated.View style={{...StyleSheet.absoluteFill, transform: [{ translateY: bgY }]}}>
-                <Image source={require('../assets/bg.jpeg')} style={{ flex: 1, width: null, height: null }} />
+                {/* <Defs>
+                    <ClipPath id="clip">
+                        <Circle r={height + 5} />
+                    </ClipPath>
+                </Defs> */}
+                <Svg height={height + 100} width={width}>
+                    <Image
+                        href={require('../assets/bg-curve.png')}
+                        height={height + 90} width={width} 
+                        preserveAspectRatio='xMidYMid slice'
+                        clipPath="#clip"
+                    />
+                </Svg>
             </Animated.View>
 
             {/* UI */}
@@ -126,24 +205,36 @@ function LandingPage({ state, navigation }) {
                     </Animated.View>
                 </TapGestureHandler>
 
-                <Animated.View style={{...styles.button, opacity: buttonOpacity, transform: [{ translateY: buttonY }], backgroundColor: '#3D74B6'}}>
-                    <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Sign Up</Text>
-                </Animated.View>
+                <TouchableOpacity onPress={() => {navigation.navigate("Create An Account")}}>
+                    <Animated.View style={{...styles.button, opacity: buttonOpacity, transform: [{ translateY: buttonY }], backgroundColor: '#3D74B6'}}>
+                        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'white'}}>Sign Up</Text>
+                    </Animated.View>
+                </TouchableOpacity>
 
             </View>
 
-            <Animated.View style={{ zIndex: textInputZIndex, opacity: textInputOpacity, transform: [{translateY: textInputY}], height: height/3, ...StyleSheet.absoluteFill, justifyContent: 'center', paddingTop: 500}}>
-                <TextInput placeholder="email" placeholderTextColor="black" style={styles.textInput} />
-                <TextInput placeholder="password" placeholderTextColor="black" style={styles.textInput}/>
+            <Animated.View style={{
+                zIndex: textInputZIndex, opacity: textInputOpacity, transform: [{ translateY: textInputY }],
+                height: height / 3, ...StyleSheet.absoluteFill, justifyContent: 'center', paddingTop: 525
+            }}>
+                
+                <TapGestureHandler onHandlerStateChange={onCloseState}>
+                    <Animated.View style={styles.closeButton}>
+                        <Animated.Text style={{fontSize: 15, transform: [{rotate: concat(rotateCross, 'deg')}]}}>X</Animated.Text>
+                    </Animated.View>
+                </TapGestureHandler>
+                
+                <TextInput placeholder="email" value={email} onChangeText={(email) => {setEmail(email)}} placeholderTextColor="black" style={styles.textInput} />
+                <TextInput placeholder="password" value={password} onChangeText={(password) => { setPassword(password) }} secureTextEntry placeholderTextColor="black" style={styles.textInput}/>
+            
             </Animated.View>
 
             <Animated.View style={{...styles.button, zIndex: textInputZIndex, opacity: textInputOpacity, transform: [{translateY: textInputY}], }}>
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Submit</Text>
+                <TouchableOpacity onPress={handleLogin} >
+                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>Submit</Text>
+                </TouchableOpacity>
             </Animated.View>
 
-            {/* <ImageBackground source={{uri: imgUrl}} style={{ width: 400, height: 800, borderRadius: 20 }}>
-                {renderComponents()}
-            </ImageBackground> */}
         </View>
     )
 }

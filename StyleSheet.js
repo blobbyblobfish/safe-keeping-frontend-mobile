@@ -61,7 +61,24 @@ const styles = StyleSheet.create({
         borderRadius: 35,
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 5
+        marginVertical: 5,
+        shadowOffset: { width: 2, height: 2 },
+        shadowColor: 'black',
+        shadowOpacity: 0.2
+    },
+    closeButton: {
+        height: 40,
+        width: 40,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 420,
+        left: dimensions.width / 2 - 20,
+        shadowOffset: { width: 2, height: 2 },
+        shadowColor: 'black',
+        shadowOpacity: 0.2
     },
     buttonContainer: {
         height: dimensions.height / 3,
