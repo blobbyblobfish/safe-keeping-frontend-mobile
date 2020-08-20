@@ -19,7 +19,7 @@ import CallAFriend from '../screens/CallAFriend'
 import CallATherapist from '../screens/CallATherapist'
 import CallAHotline from '../screens/CallAHotline'
 
-import Login from '../forms/Login'
+// import Login from '../forms/Login'
 import Register from '../forms/Register'
 import NewDiaryCard from '../forms/NewDiaryCard'
 import NewDiaryCardTracker from '../forms/NewDiaryCardTracker'
