@@ -1,14 +1,13 @@
 import React from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { YellowBox } from 'react-native'
 import rootReducer from './reducers/index.js'
 import AppRoot from './AppRoot'
 
+import { YellowBox } from 'react-native'
+YellowBox.ignoreWarnings([""])
 
 export default function App() {
-  
-  YellowBox.ignoreWarnings([""])
 
     const store = createStore(rootReducer)
 
