@@ -2,8 +2,10 @@ const initialState = []
 
 export default (state = initialState, action) => {
     switch (action.type) {
+
+        //Sort coping skills by name
         case "SET_COPING_SKILLS":
-            return action.payload
+            return action.payload.sort((a, b) => a.name.localeCompare(b.name))
 
         case "ADD_COPING_SKILL":
             return [...state, action.payload]

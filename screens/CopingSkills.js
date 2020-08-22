@@ -28,8 +28,7 @@ function CopingSkills( { navigation, state } ) {
   //Render carousel
   function renderCarousel() {
     
-    //Sort  coping skills by ID
-    return copingSkills.sort((a, b) => a.id > b.id ? 1 : -1).map(skill => {
+    return copingSkills.map(skill => {
       let opacity = .65
 
       if (skill.id === selectedSkill) {

@@ -12,7 +12,7 @@ function ChooseASkill({ state, navigation }) {
     }
     
     function renderCarousel() {
-        return state.coping_skills.sort((a, b) => a.id > b.id ? 1 : -1).map(skill => {
+        return state.coping_skills.map(skill => {
             let opacity = .65
 
             if (skill.id === selectedSkill) {
