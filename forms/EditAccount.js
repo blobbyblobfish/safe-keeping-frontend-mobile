@@ -24,7 +24,7 @@ function EditAccount({ state, navigation, dispatch }) {
             {
                 text: "Delete",
                 onPress: () => {
-                  fetch(`http://localhost:3000/users/${state.auth.id}`, { method: "DELETE" })
+                  fetch(`https://safe-keeping-backend.herokuapp.com/users/${state.auth.id}`, { method: "DELETE" })
                     .then(resp => resp.json())
                     .then(json => {
                       

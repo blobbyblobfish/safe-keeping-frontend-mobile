@@ -27,7 +27,7 @@ function EditCopingSkill( { navigation, route, dispatch } ) {
                 {
                     text: "Delete",
                     onPress: () => {
-                        fetch(`http://localhost:3000/coping_skills/${copingSkill.id}`, { method: "DELETE" })
+                        fetch(`https://safe-keeping-backend.herokuapp.com/coping_skills/${copingSkill.id}`, { method: "DELETE" })
                             .then(resp => resp.json())
                             .then(json => dispatch({ type: "REMOVE_COPING_SKILL", payload: json }))
                             .then(navigation.navigate("Coping Skills"))
@@ -64,7 +64,7 @@ function EditCopingSkill( { navigation, route, dispatch } ) {
                 body: JSON.stringify(updatedCopingSkill)
             }
 
-            fetch(`http://localhost:3000/coping_skills/${copingSkill.id}`, copingSkillConfigObj)
+            fetch(`https://safe-keeping-backend.herokuapp.com/coping_skills/${copingSkill.id}`, copingSkillConfigObj)
                 .then(resp => resp.json())
                 .then(json => {
                     dispatch({

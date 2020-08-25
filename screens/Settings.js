@@ -20,7 +20,7 @@ function Settings({ state, navigation, dispatch }) {
         }
 
         // Currently users can only add one therapist. Update this when the feature is expanded
-        fetch(`http://localhost:3000/user_therapists`, configObj)
+        fetch(`https://safe-keeping-backend.herokuapp.com/user_therapists`, configObj)
           .then(resp => resp.json())
           .then(json => {
             dispatch({type: "REMOVE_THERAPIST", payload: json})

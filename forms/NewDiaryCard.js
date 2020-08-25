@@ -152,7 +152,7 @@ function NewDiaryCard({ route, navigation, state, dispatch }) {
             body: JSON.stringify(newDiaryCard)
           }
 
-          fetch(`http://localhost:3000/diary_cards`, configObj)
+          fetch(`https://safe-keeping-backend.herokuapp.com/diary_cards`, configObj)
             .then(resp => resp.json())
             .then(json => {                    
               dispatch({

@@ -31,7 +31,7 @@ function TryThisOne({ route, state, navigation, dispatch }) {
                     body: JSON.stringify(updatedCopingSkill)
                 }
 
-                fetch(`http://localhost:3000/coping_skills/${copingSkill.id}`, copingSkillConfigObj)
+                fetch(`https://safe-keeping-backend.herokuapp.com/coping_skills/${copingSkill.id}`, copingSkillConfigObj)
                     .then(resp => resp.json())
                     .then(json => {
                         dispatch({
@@ -59,7 +59,7 @@ function TryThisOne({ route, state, navigation, dispatch }) {
                     body: JSON.stringify(updatedCopingSkill)
                 }
 
-                fetch(`http://localhost:3000/coping_skills/${copingSkill.id}`, copingSkillConfigObj)
+                fetch(`https://safe-keeping-backend.herokuapp.com/coping_skills/${copingSkill.id}`, copingSkillConfigObj)
                     .then(resp => resp.json())
                     .then(json => {
                         dispatch({

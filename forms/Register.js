@@ -41,7 +41,7 @@ function Register( { dispatch } ) {
                     body: JSON.stringify(newAccount)
                 }
 
-                fetch(`http://localhost:3000/users`, configObj)
+                fetch(`https://safe-keeping-backend.herokuapp.com/users`, configObj)
                     .then(resp => resp.json())
                     .then(json => {
                         const copingSkills = json.user.coping_skills
