@@ -7,7 +7,7 @@ import styles from '../StyleSheet'
 
 function CopingSkills( { navigation, state } ) {
 
-  //Get coping skills and set first as default selected skill
+  // Get coping skills and set first skill as default selected skill
   const copingSkills = state.coping_skills
 
   let initialState = 0
@@ -22,10 +22,10 @@ function CopingSkills( { navigation, state } ) {
       waves: "https://images.unsplash.com/photo-1581701545134-c627459217a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
   }
 
-  //Controlled inputs
+  // Controlled inputs
   const [selectedSkill, setSelectedSkill] = useState(initialState)
   
-  //Render carousel
+  // Render carousel
   function renderCarousel() {
     
     return copingSkills.map(skill => {
@@ -50,7 +50,7 @@ function CopingSkills( { navigation, state } ) {
     )
   }
 
-  //Render selected skill
+  // Render selected skill
   function renderCopingSkill() { 
     const skillToRender = copingSkills.filter(skill => skill.id === selectedSkill)
 

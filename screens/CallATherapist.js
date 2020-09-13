@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Text, View, Button } from 'react-native'
+import { View, Button } from 'react-native'
 
 import EmergencyContact from '../components/EmergencyContact'
 import styles from '../StyleSheet'

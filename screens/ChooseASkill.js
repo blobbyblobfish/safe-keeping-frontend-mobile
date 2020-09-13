@@ -40,7 +40,6 @@ function ChooseASkill({ state, navigation }) {
                 {renderCarousel()}
             </ScrollView>
 
-            {/* Hidden text to maintain formatting */}
             {selectedSkill > 0 ?  <Button title="Try This One" onPress={() => navigation.navigate("Try This One", {selectedSkill: selectedSkill})} /> : null }
             {selectedSkill > 0 ? <Text style={{marginBottom: 100}}>{state.coping_skills.filter(skill => {return skill.id === selectedSkill})[0].name}</Text> : null }
             

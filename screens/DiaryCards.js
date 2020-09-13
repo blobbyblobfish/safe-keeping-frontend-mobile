@@ -8,27 +8,27 @@ import styles from '../StyleSheet'
 
 function DiaryCards({ navigation, state, }) {
 
-  //***DATE SELECTION***
-  //Set default selected date to today
+  // ***DATE SELECTION***
+  // Set default selected date to today
   const today = new Date()
   const [date, setDate] = useState({ year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() })
   
-  //Convert selected date to date-string and full date
+  // Convert selected date to date-string and full date
   let datestring = `${date.year}-${date.month}-${date.day}`
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const fullDate = `${months[date.month - 1]} ${date.day} ${date.year}`
 
-  //Convert datestring month to double digits
+  // Convert datestring month to double digits
   if (date.month < 10) {
     datestring = `${date.year}-0${date.month}-${date.day}`
   }
   
-  //Convert datestring day to double digits
+  // Convert datestring day to double digits
   if (date.day < 10) {
     datestring = `${date.year}-0${date.month}-0${date.day}`
   }
   
-  //***UTC CONVERSION***
+  // ***UTC CONVERSION***
   function returnDatestring(timestamp) {
     const convertedDate = new Date(timestamp)
 
@@ -46,28 +46,28 @@ function DiaryCards({ navigation, state, }) {
     return `${convertedDate.getFullYear()}-${convertedMonth}-${convertedDay}`
   }
 
-  //For Diary Cards
+  // For Diary Cards
   const renderDiaryCards = () => {
   
-    //Filter by selected date
+    // Filter by selected date
     const filteredDiaryCards = state.diary_cards.filter(diary_card => {
       return returnDatestring(diary_card.entry_timestamp) === datestring
     })
     
-    //Render Diary Cards
+    // Render Diary Cards
     return filteredDiaryCards.sort((a, b) => a.entry_timestamp > b.entry_timestamp ? 1 : -1).map(diary_card => {
       return <DiaryCard key={diary_card.id} diaryCard={diary_card} navigation={navigation} />
     })
   }
 
-  //Mark dates on calendar
+  // Mark dates on calendar
   function markedDates() {
     let markedDates = {}
 
-    //Selected day
+    // Selected day
     markedDates[datestring] = { selected: true }
 
-    //Dates with diary cards
+    // Dates with diary cards
     const diaryCardDates = state.diary_cards.map(diaryCard => {
       return returnDatestring(diaryCard.entry_timestamp)
     })

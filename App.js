@@ -4,8 +4,9 @@ import { Provider } from 'react-redux'
 import rootReducer from './reducers/index.js'
 import AppRoot from './AppRoot'
 
-import { YellowBox } from 'react-native'
-YellowBox.ignoreWarnings([""])
+// Demo:
+// import { YellowBox } from 'react-native'
+// YellowBox.ignoreWarnings([""])
 
 export default function App() {
 

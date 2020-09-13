@@ -8,7 +8,7 @@ import {
 
 export default function TabNavigator() {
   
-  //Utility
+  // Utility
   const Tab = createBottomTabNavigator()  
 
   return (

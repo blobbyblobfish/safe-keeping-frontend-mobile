@@ -19,7 +19,6 @@ import CallAFriend from '../screens/CallAFriend'
 import CallATherapist from '../screens/CallATherapist'
 import CallAHotline from '../screens/CallAHotline'
 
-// import Login from '../forms/Login'
 import Register from '../forms/Register'
 import NewDiaryCard from '../forms/NewDiaryCard'
 import NewDiaryCardTracker from '../forms/NewDiaryCardTracker'
@@ -46,7 +45,6 @@ const LandingPageStackNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Safe Keeping" screenOptions={screenOptionStyle} >
       <Stack.Screen name="Safe Keeping" component={LandingPage} options={{ headerShown: false }} />
-      {/* <Stack.Screen name="Login" component={Login} /> */}
       <Stack.Screen name="Create An Account" component={Register} />
       <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }}/>
     </Stack.Navigator>

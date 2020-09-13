@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View, Button } from 'react-native'
+import { View, Button } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import styles from '../StyleSheet'
 

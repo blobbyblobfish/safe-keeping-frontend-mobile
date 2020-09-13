@@ -12,7 +12,7 @@ const { width, height } = Dimensions.get('window')
 
 function LandingPage({ navigation }) {
 
-    //State and controlled inputs
+    // State and controlled inputs
     const [buttonOpacity, setButtonOpacity] = useState(1)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

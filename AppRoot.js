@@ -10,17 +10,8 @@ function AppRoot( { state, dispatch } ) {
   
   console.log("IN APP ROOT", state)
 
-  //Check for persisting token
+  // Check for persisting token
   useEffect(() => {
-
-    // ** SHORTCUT **
-    // fetch('http://localhost:3000/users/30')
-    //   .then(resp => resp.json())
-    //   .then(json => {
-    //     console.log(json)
-    //     dispatch({type: "LOGIN", payload: {token: "abc", user: json}})
-    //   })
-    //   .catch(console.log) 
     
     SecureStore.getItemAsync("token")
     .then((token) => {
@@ -35,7 +26,7 @@ function AppRoot( { state, dispatch } ) {
             const diaryCards = json.diary_cards
             const emergencyContacts = json.emergency_contacts
             const trackers = json.trackers
-            // Modify backend serialization and fetch therapists
+            // ** TO DO ** Modify backend serialization and fetch therapists
 
             dispatch({
               type: "PERSIST_LOGIN",
@@ -78,7 +69,7 @@ function AppRoot( { state, dispatch } ) {
     })
   }, [])
 
-  //Return Tab Navigator if logged in. Otherwise return Splash Screen.
+  // Return Tab Navigator if logged in. Otherwise return Splash Screen.
   function renderTabs () {
     if (state.auth.token) {
       return <TabNavigator />
